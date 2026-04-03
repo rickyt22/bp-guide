@@ -1,0 +1,469 @@
+import React from "react";
+import { motion } from "framer-motion";
+import { ShieldCheck, HeartPulse, Smartphone, Activity, ChevronRight, CheckCircle2, Stethoscope, Database, MessageSquareMore, BarChart3, ArrowRight, Lock, Users, Clock3 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+
+const features = [
+  {
+    icon: HeartPulse,
+    title: "Connected monitoring devices",
+    text: "Support blood pressure, pulse oximetry, ECG, and weight tracking with simple patient workflows.",
+  },
+  {
+    icon: Smartphone,
+    title: "Easy patient onboarding",
+    text: "Guided setup, app-based engagement, and streamlined enrollment flows built for clinic adoption.",
+  },
+  {
+    icon: MessageSquareMore,
+    title: "Automated reminders",
+    text: "Keep patients on track with timely reminders and engagement touchpoints that encourage adherence.",
+  },
+  {
+    icon: BarChart3,
+    title: "Clinic visibility",
+    text: "Give care teams a clearer view of patient readings, trends, and follow-up opportunities.",
+  },
+  {
+    icon: Database,
+    title: "Scalable infrastructure",
+    text: "Built for operational reliability, controlled access, and secure data handling across growing programs.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Privacy-first design",
+    text: "Designed with healthcare privacy, role-based access, auditability, and secure workflows in mind.",
+  },
+];
+
+const steps = [
+  {
+    number: "01",
+    title: "Identify eligible patients",
+    text: "Your clinic identifies appropriate RPM candidates and determines monitoring thresholds.",
+  },
+  {
+    number: "02",
+    title: "Enroll and onboard",
+    text: "We support patient setup, device readiness, and an onboarding experience that is easy to follow.",
+  },
+  {
+    number: "03",
+    title: "Capture readings remotely",
+    text: "Patients submit readings from home while care teams gain better continuity between visits.",
+  },
+  {
+    number: "04",
+    title: "Review and act",
+    text: "Clinicians and staff review data, follow up when needed, and strengthen ongoing care management.",
+  },
+];
+
+const benefits = [
+  "Designed for clinics, medical groups, and growing RPM programs",
+  "Simple patient experience with reduced friction during setup",
+  "Operational support that helps teams launch faster",
+  "Flexible workflows for clinical and administrative staff",
+  "Built to support secure, scalable remote monitoring operations",
+  "Modern interface for patients, clinics, and admins",
+];
+
+const trustItems = [
+  {
+    icon: Lock,
+    title: "Security-minded architecture",
+    text: "Thoughtful access controls, secure workflows, and infrastructure choices designed for healthcare environments.",
+  },
+  {
+    icon: Users,
+    title: "Clinic-centered operations",
+    text: "We build around real-world staff workflows so onboarding and program management feel practical, not burdensome.",
+  },
+  {
+    icon: Clock3,
+    title: "Built for program growth",
+    text: "From pilot launches to larger patient volumes, the platform is designed to scale with your operational needs.",
+  },
+];
+
+function SectionHeader({ eyebrow, title, body }) {
+  return (
+    <div className="max-w-3xl space-y-3">
+      <div className="inline-flex rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-slate-600">
+        {eyebrow}
+      </div>
+      <h2 className="text-3xl font-semibold tracking-tight text-slate-950 md:text-4xl">
+        {title}
+      </h2>
+      <p className="text-base leading-7 text-slate-600 md:text-lg">{body}</p>
+    </div>
+  );
+}
+
+export default function TwentyTwoHealthWebsite() {
+  return (
+    <div className="min-h-screen bg-white text-slate-900">
+      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-950 text-sm font-bold text-white">
+              22
+            </div>
+            <div>
+              <div className="text-sm font-semibold tracking-wide text-slate-950">22RPM</div>
+              <div className="text-xs text-slate-500">Twenty Two Health</div>
+            </div>
+          </div>
+
+          <nav className="hidden items-center gap-8 text-sm text-slate-600 md:flex">
+            <a href="#solutions" className="transition hover:text-slate-950">Solutions</a>
+            <a href="#how-it-works" className="transition hover:text-slate-950">How it works</a>
+            <a href="#security" className="transition hover:text-slate-950">Security</a>
+            <a href="#contact" className="transition hover:text-slate-950">Contact</a>
+          </nav>
+
+          <div className="flex items-center gap-3">
+            <Button variant="outline" className="hidden rounded-2xl md:inline-flex">Partner login</Button>
+            <Button className="rounded-2xl bg-slate-950 text-white hover:bg-slate-800">Request a demo</Button>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section className="relative overflow-hidden">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(15,23,42,0.08),_transparent_40%),radial-gradient(circle_at_left,_rgba(59,130,246,0.08),_transparent_28%)]" />
+          <div className="relative mx-auto grid max-w-7xl gap-12 px-6 py-20 lg:grid-cols-2 lg:items-center lg:px-8 lg:py-28">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55 }}
+              className="space-y-8"
+            >
+              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700">
+                <ShieldCheck className="h-4 w-4" />
+                Remote patient monitoring for modern clinics
+              </div>
+
+              <div className="space-y-5">
+                <h1 className="max-w-2xl text-5xl font-semibold leading-tight tracking-tight text-slate-950 md:text-6xl">
+                  Smarter remote patient monitoring, built for real clinical workflows.
+                </h1>
+                <p className="max-w-xl text-lg leading-8 text-slate-600 md:text-xl">
+                  22RPM helps clinics launch and manage remote patient monitoring with connected devices,
+                  patient engagement tools, and streamlined operational support.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <Button size="lg" className="rounded-2xl bg-slate-950 px-6 text-white hover:bg-slate-800">
+                  Request a demo
+                  <ChevronRight className="ml-2 h-4 w-4" />
+                </Button>
+                <Button size="lg" variant="outline" className="rounded-2xl px-6">
+                  See how it works
+                </Button>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-3">
+                <Card className="rounded-3xl border-slate-200 shadow-sm">
+                  <CardContent className="p-5">
+                    <div className="text-2xl font-semibold text-slate-950">RPM</div>
+                    <p className="mt-1 text-sm text-slate-600">Operational support for clinic-based monitoring programs.</p>
+                  </CardContent>
+                </Card>
+                <Card className="rounded-3xl border-slate-200 shadow-sm">
+                  <CardContent className="p-5">
+                    <div className="text-2xl font-semibold text-slate-950">Patients</div>
+                    <p className="mt-1 text-sm text-slate-600">Simple onboarding and engagement designed to improve participation.</p>
+                  </CardContent>
+                </Card>
+                <Card className="rounded-3xl border-slate-200 shadow-sm">
+                  <CardContent className="p-5">
+                    <div className="text-2xl font-semibold text-slate-950">Clinics</div>
+                    <p className="mt-1 text-sm text-slate-600">Tools and workflows that help staff move faster and stay organized.</p>
+                  </CardContent>
+                </Card>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.98 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.05 }}
+              className="relative"
+            >
+              <div className="absolute -left-10 top-10 h-44 w-44 rounded-full bg-sky-100 blur-3xl" />
+              <div className="absolute -right-8 bottom-0 h-44 w-44 rounded-full bg-emerald-100 blur-3xl" />
+
+              <Card className="relative overflow-hidden rounded-[2rem] border-slate-200 shadow-2xl shadow-slate-200/60">
+                <CardContent className="space-y-6 p-6 md:p-8">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-slate-500">Care team dashboard</p>
+                      <h3 className="text-xl font-semibold text-slate-950">Program visibility at a glance</h3>
+                    </div>
+                    <div className="rounded-2xl bg-slate-100 p-3">
+                      <Activity className="h-6 w-6 text-slate-700" />
+                    </div>
+                  </div>
+
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div className="rounded-3xl bg-slate-50 p-5">
+                      <p className="text-xs uppercase tracking-[0.18em] text-slate-500">Patient engagement</p>
+                      <p className="mt-3 text-3xl font-semibold text-slate-950">Simplified</p>
+                      <p className="mt-2 text-sm leading-6 text-slate-600">
+                        Reminder workflows and patient-friendly experiences that reduce friction.
+                      </p>
+                    </div>
+                    <div className="rounded-3xl bg-slate-950 p-5 text-white">
+                      <p className="text-xs uppercase tracking-[0.18em] text-slate-400">Workflow support</p>
+                      <p className="mt-3 text-3xl font-semibold">Operationally ready</p>
+                      <p className="mt-2 text-sm leading-6 text-slate-300">
+                        Built to support clinics from onboarding through ongoing monitoring.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="rounded-3xl border border-slate-200 p-5">
+                    <div className="mb-4 flex items-center gap-2 text-sm font-medium text-slate-700">
+                      <Stethoscope className="h-4 w-4" />
+                      Key platform capabilities
+                    </div>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      {[
+                        "Connected device workflows",
+                        "Patient messaging support",
+                        "Role-based admin experiences",
+                        "Clinic-oriented onboarding",
+                        "Trend visibility for readings",
+                        "Scalable backend operations",
+                      ].map((item) => (
+                        <div key={item} className="flex items-start gap-2 rounded-2xl bg-slate-50 px-3 py-3 text-sm text-slate-700">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-emerald-600" />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </section>
+
+        <section id="solutions" className="border-t border-slate-200 bg-slate-50/60 py-24">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <SectionHeader
+              eyebrow="Solutions"
+              title="Everything your RPM program needs to launch with confidence"
+              body="From patient onboarding to clinic visibility, 22RPM is designed to make remote monitoring more practical, scalable, and easier to manage."
+            />
+
+            <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {features.map((feature, index) => {
+                const Icon = feature.icon;
+                return (
+                  <motion.div
+                    key={feature.title}
+                    initial={{ opacity: 0, y: 18 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                  >
+                    <Card className="h-full rounded-[1.75rem] border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+                      <CardContent className="p-7">
+                        <div className="mb-5 inline-flex rounded-2xl bg-slate-100 p-3">
+                          <Icon className="h-6 w-6 text-slate-800" />
+                        </div>
+                        <h3 className="text-xl font-semibold text-slate-950">{feature.title}</h3>
+                        <p className="mt-3 leading-7 text-slate-600">{feature.text}</p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section id="how-it-works" className="py-24">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+              <div>
+                <SectionHeader
+                  eyebrow="How it works"
+                  title="A cleaner path from enrollment to ongoing monitoring"
+                  body="We help clinics reduce setup friction and build repeatable workflows for remote patient monitoring programs."
+                />
+
+                <div className="mt-10 grid gap-4">
+                  {steps.map((step, index) => (
+                    <motion.div
+                      key={step.number}
+                      initial={{ opacity: 0, x: -16 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, amount: 0.25 }}
+                      transition={{ duration: 0.4, delay: index * 0.05 }}
+                    >
+                      <Card className="rounded-[1.75rem] border-slate-200 shadow-sm">
+                        <CardContent className="flex gap-5 p-6">
+                          <div className="flex h-12 w-12 flex-none items-center justify-center rounded-2xl bg-slate-950 text-sm font-semibold text-white">
+                            {step.number}
+                          </div>
+                          <div>
+                            <h3 className="text-lg font-semibold text-slate-950">{step.title}</h3>
+                            <p className="mt-2 leading-7 text-slate-600">{step.text}</p>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              <Card className="rounded-[2rem] border-slate-200 bg-slate-950 text-white shadow-xl">
+                <CardContent className="p-8 md:p-10">
+                  <p className="text-sm font-medium uppercase tracking-[0.18em] text-slate-400">Why clinics choose 22RPM</p>
+                  <h3 className="mt-4 text-3xl font-semibold tracking-tight">Built to fit healthcare operations, not fight them.</h3>
+                  <div className="mt-8 grid gap-4">
+                    {benefits.map((item) => (
+                      <div key={item} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-4">
+                        <CheckCircle2 className="mt-0.5 h-5 w-5 flex-none text-emerald-400" />
+                        <span className="text-sm leading-6 text-slate-200">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <Button className="mt-8 rounded-2xl bg-white text-slate-950 hover:bg-slate-100">
+                    Talk to our team
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        <section id="security" className="border-t border-slate-200 bg-slate-50 py-24">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <SectionHeader
+              eyebrow="Security & privacy"
+              title="A healthcare platform should feel trustworthy from day one"
+              body="22RPM is designed with privacy-first thinking, structured access, and security-minded infrastructure to support healthcare-grade operations."
+            />
+
+            <div className="mt-14 grid gap-6 md:grid-cols-3">
+              {trustItems.map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <motion.div
+                    key={item.title}
+                    initial={{ opacity: 0, y: 18 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.25 }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                  >
+                    <Card className="h-full rounded-[1.75rem] border-slate-200 bg-white shadow-sm">
+                      <CardContent className="p-7">
+                        <div className="mb-5 inline-flex rounded-2xl bg-emerald-50 p-3 text-emerald-700">
+                          <Icon className="h-6 w-6" />
+                        </div>
+                        <h3 className="text-xl font-semibold text-slate-950">{item.title}</h3>
+                        <p className="mt-3 leading-7 text-slate-600">{item.text}</p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            <div className="mt-10 rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
+              <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
+                <div>
+                  <h3 className="text-2xl font-semibold tracking-tight text-slate-950">Need a stronger compliance page later?</h3>
+                  <p className="mt-3 max-w-2xl leading-7 text-slate-600">
+                    This site is intentionally written in a careful way so it can be paired later with your formal Privacy Policy,
+                    Terms of Use, Notice of Privacy Practices, and internal compliance documentation.
+                  </p>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {[
+                    "Privacy Policy",
+                    "Terms of Use",
+                    "Business Associate workflows",
+                    "Administrative safeguards",
+                  ].map((item) => (
+                    <div key={item} className="rounded-2xl bg-slate-50 px-4 py-4 text-sm font-medium text-slate-700">
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-24">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="rounded-[2rem] bg-slate-950 px-8 py-12 text-white md:px-12 md:py-16">
+              <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+                <div>
+                  <p className="text-sm font-medium uppercase tracking-[0.18em] text-slate-400">Ready to launch</p>
+                  <h2 className="mt-4 max-w-3xl text-3xl font-semibold tracking-tight md:text-4xl">
+                    Build a remote monitoring program your patients can actually use and your clinic can actually manage.
+                  </h2>
+                  <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300 md:text-lg">
+                    Whether you are starting a pilot or expanding an existing RPM offering, 22RPM helps create a smoother operational experience.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+                  <Button className="rounded-2xl bg-white text-slate-950 hover:bg-slate-100">Request a demo</Button>
+                  <Button variant="outline" className="rounded-2xl border-white/20 bg-transparent text-white hover:bg-white/10 hover:text-white">
+                    Contact sales
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer id="contact" className="border-t border-slate-200 bg-white">
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 py-14 lg:grid-cols-4 lg:px-8">
+          <div className="lg:col-span-2">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-950 text-sm font-bold text-white">
+                22
+              </div>
+              <div>
+                <div className="text-sm font-semibold tracking-wide text-slate-950">22RPM</div>
+                <div className="text-xs text-slate-500">Twenty Two Health</div>
+              </div>
+            </div>
+            <p className="mt-5 max-w-md leading-7 text-slate-600">
+              Remote patient monitoring infrastructure and operational support for modern healthcare teams.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Company</h3>
+            <div className="mt-4 space-y-3 text-sm text-slate-600">
+              <a href="#solutions" className="block hover:text-slate-950">Solutions</a>
+              <a href="#how-it-works" className="block hover:text-slate-950">How it works</a>
+              <a href="#security" className="block hover:text-slate-950">Security</a>
+            </div>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-slate-500">Legal</h3>
+            <div className="mt-4 space-y-3 text-sm text-slate-600">
+              <a href="#" className="block hover:text-slate-950">Privacy Policy</a>
+              <a href="#" className="block hover:text-slate-950">Terms of Use</a>
+              <a href="#" className="block hover:text-slate-950">Contact</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
