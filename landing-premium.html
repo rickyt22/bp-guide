@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>22RPM | Connected Care. Real-Time Intelligence.</title>
+  <meta name="description" content="22RPM helps clinics and hospital systems monitor patients beyond their walls with connected devices, guided patient workflows, and a real-time clinician dashboard." />
+  <style>
+    :root {
+      --navy: #0f2740;
+      --navy-2: #173958;
+      --teal: #1cc8b8;
+      --teal-deep: #0ea5a6;
+      --mint: #e8fbf8;
+      --sky: #edf7ff;
+      --ink: #102437;
+      --muted: #5f7386;
+      --line: #dbe8ef;
+      --white: #ffffff;
+      --bg: #f7fbfd;
+      --shadow: 0 16px 48px rgba(15, 39, 64, 0.12);
+      --shadow-soft: 0 10px 30px rgba(15, 39, 64, 0.08);
+      --radius-xl: 34px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(28,200,184,0.18), transparent 20%),
+        radial-gradient(circle at left center, rgba(107,203,255,0.14), transparent 28%),
+        var(--bg);
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(247, 251, 253, 0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(219, 232, 239, 0.9);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 58%, var(--teal) 100%);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      font-size: 16px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+      flex: none;
+    }
+
+    .brand-text {
+      line-height: 1.05;
+      min-width: 0;
+    }
+
+    .brand-text strong {
+      display: block;
+      font-size: 18px;
+      letter-spacing: -0.03em;
+    }
+
+    .brand-text span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 4px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 26px;
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      cursor: pointer;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset;
+    }
+
+    .btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-soft); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 68%, var(--teal) 130%);
+      color: white;
+      border-color: transparent;
+    }
+    .btn-soft {
+      background: rgba(255,255,255,0.84);
+    }
+
+    .hero {
+      padding: 54px 0 28px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.04fr 0.96fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: var(--mint);
+      color: var(--teal-deep);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      margin-bottom: 18px;
+      border: 1px solid rgba(28,200,184,0.18);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(44px, 6vw, 72px);
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      max-width: 720px;
+      color: var(--navy);
+    }
+
+    .lead {
+      margin: 22px 0 0;
+      max-width: 640px;
+      color: var(--muted);
+      font-size: 19px;
+      line-height: 1.8;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .metric-card,
+    .surface,
+    .cta-band,
+    .footer-shell,
+    .story-card,
+    .image-card,
+    .dashboard-card,
+    .step,
+    .reason-card,
+    .cap-card {
+      background: rgba(255,255,255,0.95);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .metric-card {
+      padding: 20px 18px;
+    }
+
+    .metric-card strong {
+      display: block;
+      font-size: 24px;
+      color: var(--navy);
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+
+    .metric-card p,
+    .surface p,
+    .story-card p,
+    .reason-card p,
+    .cap-card p,
+    .step p,
+    .footer-shell p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 660px;
+    }
+
+    .image-card {
+      position: absolute;
+      overflow: hidden;
+      border-radius: 30px;
+      background: var(--white);
+    }
+
+    .image-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .image-card.doctor {
+      top: 0;
+      right: 0;
+      width: 68%;
+      height: 300px;
+    }
+
+    .image-card.patient {
+      left: 0;
+      bottom: 0;
+      width: 46%;
+      height: 230px;
+    }
+
+    .dashboard-card {
+      position: absolute;
+      left: 6%;
+      top: 180px;
+      width: 78%;
+      padding: 22px;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .dashboard-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .dashboard-head small {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+
+    .dashboard-head h3 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: -0.04em;
+      color: var(--navy);
+    }
+
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--mint);
+      color: var(--teal-deep);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid rgba(28,200,184,0.16);
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .kpi {
+      padding: 14px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #ffffff 0%, #f5fbfd 100%);
+      border: 1px solid #e8f1f6;
+    }
+
+    .kpi span {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+    }
+
+    .kpi strong {
+      display: block;
+      font-size: 28px;
+      letter-spacing: -0.05em;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .chart-shell {
+      padding: 16px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, #f8fcfe 0%, #ffffff 100%);
+      border: 1px solid #e8f1f6;
+      margin-bottom: 12px;
+    }
+
+    .chart {
+      position: relative;
+      height: 170px;
+      border-radius: 18px;
+      background:
+        linear-gradient(to top, rgba(15,39,64,0.06) 1px, transparent 1px) 0 0 / 100% 34px,
+        linear-gradient(to right, rgba(15,39,64,0.04) 1px, transparent 1px) 0 0 / 20% 100%,
+        linear-gradient(180deg, #ffffff 0%, #eefbfa 100%);
+      overflow: hidden;
+    }
+
+    .line-1,
+    .line-2 {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .line-1 polyline { fill: none; stroke: var(--navy); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+    .line-2 polyline { fill: none; stroke: var(--teal); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+
+    .alert-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .alert-card {
+      border-radius: 18px;
+      padding: 14px;
+      background: #f7fbfd;
+      border: 1px solid #e8f1f6;
+    }
+
+    .alert-card strong {
+      display: block;
+      font-size: 15px;
+      margin-bottom: 6px;
+      color: var(--navy);
+    }
+
+    .alert-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .section {
+      padding: 94px 0 8px;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 28px;
+    }
+
+    .section-head .kicker {
+      display: inline-block;
+      color: var(--teal-deep);
+      background: var(--mint);
+      border: 1px solid rgba(28,200,184,0.18);
+      border-radius: 999px;
+      padding: 8px 13px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: clamp(32px, 4vw, 54px);
+      line-height: 1.02;
+      letter-spacing: -0.05em;
+      color: var(--navy);
+    }
+
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.8;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 26px;
+      align-items: stretch;
+    }
+
+    .story-card {
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+      min-height: 430px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .story-card .bg-image {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .story-card .bg-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .story-card:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(15,39,64,0.06) 0%, rgba(15,39,64,0.78) 100%);
+      z-index: 1;
+    }
+
+    .story-copy {
+      position: relative;
+      z-index: 2;
+      color: white;
+      max-width: 90%;
+    }
+
+    .story-copy .kicker {
+      display: inline-block;
+      margin-bottom: 12px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.16);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .story-copy h3 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .story-copy p { color: rgba(255,255,255,0.84); }
+
+    .cap-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .cap-card {
+      padding: 22px;
+    }
+
+    .cap-icon,
+    .reason-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(180deg, #eefbfa 0%, #ffffff 100%);
+      color: var(--teal-deep);
+      font-size: 22px;
+      margin-bottom: 14px;
+      border: 1px solid #d9f3ef;
+    }
+
+    .cap-card h3,
+    .reason-card h3,
+    .step h3,
+    .footer-shell h3 {
+      margin: 0 0 10px;
+      color: var(--navy);
+      font-size: 24px;
+      letter-spacing: -0.04em;
+    }
+
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: 1.04fr 0.96fr;
+      gap: 26px;
+      align-items: start;
+    }
+
+    .steps {
+      display: grid;
+      gap: 14px;
+    }
+
+    .step {
+      padding: 22px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .step-no {
+      width: 50px;
+      height: 50px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 15px;
+      font-weight: 800;
+      flex: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12);
+    }
+
+    .reasons {
+      display: grid;
+      gap: 16px;
+    }
+
+    .reason-card {
+      padding: 24px;
+    }
+
+    .reason-card.primary {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 62%, var(--teal) 130%);
+      border-color: transparent;
+    }
+
+    .reason-card.primary h3,
+    .reason-card.primary p,
+    .reason-card.primary .reason-list,
+    .reason-card.primary .reason-list li { color: white; }
+
+    .reason-card.primary .reason-icon {
+      background: rgba(255,255,255,0.14);
+      border-color: rgba(255,255,255,0.12);
+      color: white;
+    }
+
+    .reason-list {
+      margin: 16px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      color: var(--muted);
+    }
+
+    .reason-list li {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      line-height: 1.55;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .cta-band {
+      margin-top: 34px;
+      padding: 34px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 22px;
+      align-items: center;
+      background: linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(232,251,248,0.96) 100%);
+    }
+
+    .cta-band h3 {
+      margin: 0 0 10px;
+      font-size: 36px;
+      line-height: 1.03;
+      letter-spacing: -0.05em;
+      color: var(--navy);
+    }
+
+    .cta-band p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.8;
+      max-width: 720px;
+    }
+
+    .footer {
+      padding: 86px 0 34px;
+    }
+
+    .footer-shell {
+      padding: 28px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr 0.8fr;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      display: block;
+      color: var(--muted);
+      margin: 10px 0;
+      font-weight: 600;
+    }
+
+    .subtle {
+      margin-top: 16px;
+      color: #7a8d9e;
+      font-size: 14px;
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid,
+      .story-grid,
+      .workflow-grid,
+      .cta-band,
+      .footer-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: 620px;
+      }
+
+      .cta-band { text-align: left; }
+    }
+
+    @media (max-width: 920px) {
+      .nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .brand,
+      .nav-actions { width: 100%; justify-content: center; }
+
+      .hero-metrics,
+      .kpi-grid,
+      .alert-grid,
+      .cap-grid,
+      .trust-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .image-card.doctor {
+        width: 72%;
+        height: 250px;
+      }
+
+      .dashboard-card {
+        left: 4%;
+        width: 92%;
+        top: 160px;
+      }
+
+      .image-card.patient {
+        width: 52%;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero { padding-top: 36px; }
+      .hero-visual { min-height: 560px; }
+      .image-card.doctor {
+        width: 78%;
+        height: 200px;
+      }
+      .dashboard-card {
+        top: 128px;
+        padding: 18px;
+      }
+      .image-card.patient {
+        width: 58%;
+        height: 180px;
+      }
+      h1 { font-size: 42px; }
+      .section { padding-top: 72px; }
+      .cta-band, .footer-shell, .story-card, .cap-card, .reason-card, .step { padding: 22px; }
+      .story-card { min-height: 350px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="22RPM home">
+        <div class="brand-mark">22</div>
+        <div class="brand-text">
+          <strong>22RPM</strong>
+          <span>Connected care platform</span>
+        </div>
+      </a>
+      <div class="nav-links">
+        <a href="#solutions">Solutions</a>
+        <a href="#workflow">How it works</a>
+        <a href="#security">Security</a>
+        <a href="for-providers.html">For providers</a>
+        <a href="index.html">BP guide</a>
+      </div>
+      <div class="nav-actions">
+        <a class="btn btn-soft" href="mailto:info@twentytwohealth.com">Contact</a>
+        <a class="btn btn-primary" href="mailto:info@twentytwohealth.com?subject=22RPM%20Demo%20Request">Request a demo</a>
+      </div>
+    </div>
+  </div>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">● Connected care. Real-time intelligence.</div>
+          <h1>Remote patient monitoring built for clinics and hospital systems.</h1>
+          <p class="lead">22RPM helps care teams monitor patients beyond their walls with connected devices, guided patient workflows, and a real-time clinician dashboard designed for meaningful action.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="mailto:info@twentytwohealth.com?subject=22RPM%20Demo%20Request">Schedule a call</a>
+            <a class="btn btn-soft" href="#solutions">Explore platform</a>
+          </div>
+          <div class="hero-metrics">
+            <div class="metric-card">
+              <strong>Devices</strong>
+              <p>Blood pressure, oxygen, ECG, temperature, and weight workflows in one place.</p>
+            </div>
+            <div class="metric-card">
+              <strong>Patients</strong>
+              <p>App-guided setup that reduces friction and improves adherence from day one.</p>
+            </div>
+            <div class="metric-card">
+              <strong>Clinicians</strong>
+              <p>Live trend visibility, alerting, and role-aware experiences for care teams.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="image-card doctor">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1200&q=80" alt="Doctor reviewing patient care data" />
+          </div>
+
+          <div class="dashboard-card">
+            <div class="dashboard-head">
+              <div>
+                <small>Clinician dashboard</small>
+                <h3>Generic program view</h3>
+              </div>
+              <div class="pill">Live monitoring</div>
+            </div>
+
+            <div class="kpi-grid">
+              <div class="kpi">
+                <span>Monitored patients</span>
+                <strong>148</strong>
+                <p>Across active programs</p>
+              </div>
+              <div class="kpi">
+                <span>Flagged readings</span>
+                <strong>12</strong>
+                <p>Need staff review</p>
+              </div>
+              <div class="kpi">
+                <span>Adherence</span>
+                <strong>91%</strong>
+                <p>Past 30 days</p>
+              </div>
+            </div>
+
+            <div class="chart-shell">
+              <div class="chart">
+                <svg class="line-1" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                  <polyline points="0,72 12,70 22,62 36,58 48,61 60,46 72,42 84,32 100,28"></polyline>
+                </svg>
+                <svg class="line-2" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                  <polyline points="0,82 12,76 24,73 36,66 48,60 60,56 72,49 84,43 100,37"></polyline>
+                </svg>
+              </div>
+            </div>
+
+            <div class="alert-grid">
+              <div class="alert-card">
+                <strong>Custom threshold alerts</strong>
+                <span>Out-of-range readings are highlighted so staff can review quickly.</span>
+              </div>
+              <div class="alert-card">
+                <strong>Trend visibility</strong>
+                <span>Simple charts help teams spot worsening patterns earlier.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="image-card patient">
+            <img src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1000&q=80" alt="Patient using a remote monitoring device at home" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="solutions">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Platform</div>
+          <h2>A healthcare experience that feels modern on both sides of care.</h2>
+          <p>Modeled after the cleaner, more premium healthcare-tech style you liked, this page leans into stronger visuals, clearer product storytelling, and a more confident clinic-facing layout.</p>
+        </div>
+
+        <div class="story-grid">
+          <div class="story-card">
+            <div class="bg-image">
+              <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80" alt="Doctor and patient discussing care" />
+            </div>
+            <div class="story-copy">
+              <div class="kicker">Why 22RPM</div>
+              <h3>More than devices. A full monitoring workflow.</h3>
+              <p>22RPM connects device setup, patient engagement, live readings, and staff review into one smoother operational model.</p>
+            </div>
+          </div>
+
+          <div class="cap-grid">
+            <div class="cap-card">
+              <div class="cap-icon">♥</div>
+              <h3>Connected devices</h3>
+              <p>Support blood pressure, oxygen, ECG, weight, and temperature with simple patient flows.</p>
+            </div>
+            <div class="cap-card">
+              <div class="cap-icon">📱</div>
+              <h3>Guided patient app</h3>
+              <p>Simple onboarding, easier login, and repeatable reading workflows built for real patients.</p>
+            </div>
+            <div class="cap-card">
+              <div class="cap-icon">📈</div>
+              <h3>Clinician dashboard</h3>
+              <p>Surface trend lines, active programs, and flagged readings in a cleaner, faster staff view.</p>
+            </div>
+            <div class="cap-card">
+              <div class="cap-icon">🤖</div>
+              <h3>Actionable insights</h3>
+              <p>Help teams focus on the readings that matter instead of drowning them in noise.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="workflow">
+      <div class="container workflow-grid">
+        <div>
+          <div class="section-head">
+            <div class="kicker">How 22RPM works</div>
+            <h2>A cleaner path from enrollment to intervention.</h2>
+            <p>Keep the model simple for partners: identify patients, onboard quickly, capture readings, and review only what needs action.</p>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <div class="step-no">01</div>
+              <div>
+                <h3>Identify and enroll</h3>
+                <p>Your clinic identifies RPM candidates and defines the monitoring plan and thresholds.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-no">02</div>
+              <div>
+                <h3>Device setup and onboarding</h3>
+                <p>Patients receive the device and a guided app experience that makes activation easier to complete.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-no">03</div>
+              <div>
+                <h3>Daily readings from home</h3>
+                <p>Readings upload into the platform so your team can maintain continuity between visits.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-no">04</div>
+              <div>
+                <h3>Review, triage, and act</h3>
+                <p>Clinicians and staff can review trends, spot abnormalities, and escalate earlier when needed.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="reasons">
+          <div class="reason-card primary">
+            <div class="reason-icon">✦</div>
+            <h3>Built to feel premium and practical.</h3>
+            <p>This version pushes the visual direction closer to the Kangaroo-style healthcare SaaS look while keeping your message grounded in 22RPM’s actual model.</p>
+            <ul class="reason-list">
+              <li>Stronger hero section with doctor, patient, and dashboard storytelling</li>
+              <li>More confident brand palette built around navy, teal, mint, and white</li>
+              <li>Cleaner clinic-facing layout that feels more enterprise and less generic</li>
+            </ul>
+          </div>
+
+          <div class="reason-card">
+            <div class="reason-icon">🔒</div>
+            <h3>Privacy-first product language</h3>
+            <p>The page keeps the messaging careful and operational instead of making risky compliance promises on the public site.</p>
+          </div>
+
+          <div class="reason-card">
+            <div class="reason-icon">⚙</div>
+            <h3>Easy next step</h3>
+            <p>You can keep this as a premium draft page now, then swap your actual logo file and your own dashboard screenshots afterward.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="security">
+      <div class="container">
+        <div class="section-head">
+          <div class="kicker">Security & privacy</div>
+          <h2>Trust should be visible before a clinic ever books the call.</h2>
+          <p>22RPM is positioned here as a security-minded, clinic-centered platform built for growth, cleaner onboarding, and responsible data workflows.</p>
+        </div>
+
+        <div class="trust-grid">
+          <div class="reason-card">
+            <div class="reason-icon">🛡</div>
+            <h3>Security-minded architecture</h3>
+            <p>Role-aware access, secure workflows, and infrastructure choices designed for healthcare environments.</p>
+          </div>
+          <div class="reason-card">
+            <div class="reason-icon">👥</div>
+            <h3>Clinic-centered operations</h3>
+            <p>Designed around real staff workflows so the platform feels practical instead of burdensome.</p>
+          </div>
+          <div class="reason-card">
+            <div class="reason-icon">⏱</div>
+            <h3>Built to scale</h3>
+            <p>From early pilots to broader deployments, the structure is designed to support program growth.</p>
+          </div>
+        </div>
+
+        <div class="cta-band">
+          <div>
+            <h3>Ready to turn this into the real homepage?</h3>
+            <p>This premium version is live as a draft page now. Once your actual logo file is uploaded, I can swap the text mark for the real asset and tighten the palette one more round around it.</p>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end;">
+            <a class="btn btn-primary" href="mailto:info@twentytwohealth.com?subject=22RPM%20Demo%20Request">Book a demo</a>
+            <a class="btn btn-soft" href="mailto:info@twentytwohealth.com">Contact sales</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-shell">
+      <div>
+        <div class="brand" style="margin-bottom:14px;">
+          <div class="brand-mark">22</div>
+          <div class="brand-text">
+            <strong>22RPM</strong>
+            <span>Connected care platform</span>
+          </div>
+        </div>
+        <p>Remote patient monitoring infrastructure and operational support for clinics and hospital systems.</p>
+        <div class="subtle">Draft premium landing page for 22RPM.</div>
+      </div>
+      <div class="footer-links">
+        <h3>Company</h3>
+        <a href="#solutions">Solutions</a>
+        <a href="#workflow">How it works</a>
+        <a href="#security">Security</a>
+      </div>
+      <div class="footer-links">
+        <h3>Resources</h3>
+        <a href="index.html">Patient BP guide</a>
+        <a href="for-providers.html">For providers</a>
+        <a href="mailto:info@twentytwohealth.com">Contact</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
