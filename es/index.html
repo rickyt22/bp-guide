@@ -1,0 +1,571 @@
+<!doctype html>
+<!--
+  ============================================================================
+  NEEDS NATIVE-SPEAKER CLINICAL REVIEW BEFORE PATIENT DISTRIBUTION.
+
+  This Spanish version was written for patient readability in neutral Latin
+  American Spanish, not translated literally from the English. It has NOT been
+  reviewed by a native speaker with clinical background. Please have one review
+  it before this is printed or handed to patients.
+
+  Two things a reviewer should check first:
+
+  1. UI LABELS ARE DELIBERATELY LEFT IN ENGLISH. The 22RPM app has no Spanish
+     localization — "Quick Access", "Blood Pressure", "Login", "Connect",
+     "Close" and "Verify" are hardcoded English strings (rpm-ios-app/Home.js,
+     Login.js). So every on-screen button is named here in English, in quotes,
+     with a Spanish gloss after it. The previous version of this guide
+     translated those labels, which would send a patient looking for buttons
+     that do not exist. App Store / Play Store buttons ARE localized by Apple
+     and Google, so those remain in Spanish.
+
+  2. All numbers, units and blood pressure thresholds are identical to the
+     English version, digit for digit, and match classifyBP() in
+     22rpm/rpm-dashboard-v1.0 (src/utils/bpClassifier.js). The "Baja" row uses
+     the AHA hypotension boundary of under 90/60 and is deliberately worded
+     around SYMPTOMS rather than the numbers: a low reading is not by itself
+     an emergency. Please keep that framing if you reword it.
+  ============================================================================
+-->
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cómo Usar Su Monitor de Presión Arterial | 22RPM</title>
+    <meta
+      name="description"
+      content="Guía paso a paso para su monitor de presión arterial 22RPM: instale la aplicación, inicie sesión, conecte el monitor, tome una lectura y entienda sus números."
+    />
+
+    <link rel="alternate" hreflang="es" href="https://twentytwohealth.com/bp-guide/es/" />
+    <link rel="alternate" hreflang="en" href="https://twentytwohealth.com/bp-guide/" />
+    <link rel="alternate" hreflang="x-default" href="https://twentytwohealth.com/bp-guide/" />
+
+    <link rel="icon" href="../assets/logo.png" />
+    <link rel="stylesheet" href="../assets/brand.css" />
+    <link rel="stylesheet" href="../assets/guide.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Ir a las instrucciones</a>
+
+    <div class="topbar">
+      <a class="back" href="https://www.twentytwohealth.com">&larr; Volver a twentytwohealth.com</a>
+      <div class="langs">
+        <span id="lang-label">Idioma / Language</span>
+        <ul aria-labelledby="lang-label">
+          <li><a href="../" lang="en" hreflang="en">English</a></li>
+          <li><a href="./" aria-current="true" lang="es">Español</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <header class="guide-head">
+      <img
+        src="../assets/logo.png"
+        width="275"
+        height="289"
+        alt="Logotipo de 22RPM: un corazón formado por una mano abierta y una figura humana."
+      />
+      <div>
+        <div class="wordmark">22RPM</div>
+        <p>Servicios de Monitoreo Remoto de Pacientes</p>
+      </div>
+      <span class="print-title">Guía del Monitor de Presión Arterial</span>
+    </header>
+
+    <div class="hero">
+      <span class="badge">Guía para el paciente</span>
+      <h1>Cómo Usar Su Monitor de Presión Arterial</h1>
+      <p>Instrucciones sencillas, paso a paso. Su equipo de atención siempre está aquí para ayudarle.</p>
+    </div>
+
+    <main class="container" id="main">
+      <div class="intro">
+        <strong>¡Bienvenido a 22RPM!</strong>
+        Su médico le entregó un monitor de presión arterial para que su equipo de
+        atención pueda cuidar su salud desde su casa. Esta guía le explica todo, un
+        paso sencillo a la vez.
+        <strong style="display:inline;font-size:inherit"
+          >Si en algún momento tiene dificultad, escríbanos y le ayudamos.</strong
+        >
+      </div>
+
+      <div class="note note--tip" style="margin-top:1rem">
+        <span class="ico" aria-hidden="true">📱</span>
+        <p>
+          La aplicación 22RPM está en inglés. En esta guía, los botones aparecen con su
+          nombre en inglés entre comillas &mdash; tal como los verá en la pantalla
+          &mdash; y su significado en español al lado.
+        </p>
+      </div>
+
+      <div class="section-label"><span>Para comenzar</span></div>
+
+      <div class="steps-wrap">
+        <section class="step">
+          <div class="head">
+            <span class="n" aria-hidden="true">1</span>
+            <div>
+              <h2>Descargue la Aplicación 22RPM</h2>
+              <p>Descarga gratuita para iPhone y Android</p>
+            </div>
+          </div>
+          <div class="body">
+            <p>
+              La aplicación 22RPM conecta su monitor de presión arterial con su equipo
+              de atención. Solo necesita descargarla una vez.
+            </p>
+            <ol class="steps">
+              <li>
+                Tome su teléfono y busque la <strong>App Store</strong> (iPhone) o la
+                <strong>Google Play Store</strong> (Android).
+              </li>
+              <li>Toque la barra de búsqueda y escriba: <strong>22RPM</strong></li>
+              <li>
+                Toque <strong>Obtener</strong> (iPhone) o <strong>Instalar</strong>
+                (Android) y espere a que termine.
+              </li>
+              <li>
+                Cuando termine de descargarse, toque <strong>Abrir</strong> para iniciar
+                la aplicación.
+              </li>
+            </ol>
+            <div class="note note--tip">
+              <span class="ico" aria-hidden="true">💡</span>
+              <p>
+                <strong>¿Necesita ayuda?</strong> Pídale ayuda a un familiar o escríbanos
+                a
+                <a href="mailto:info@twentytwohealth.com">info@twentytwohealth.com</a> y
+                le ayudamos.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="step">
+          <div class="head">
+            <span class="n" aria-hidden="true">2</span>
+            <div>
+              <h2>Inicie Sesión en la Aplicación</h2>
+              <p>Use el usuario y la contraseña que le dio su equipo</p>
+            </div>
+          </div>
+          <div class="body">
+            <ol class="steps">
+              <li>
+                Abra la aplicación <strong>22RPM</strong>. Verá la pantalla de inicio de
+                sesión.
+              </li>
+              <li>
+                Escriba el <strong>usuario y la contraseña</strong> que le dio su equipo
+                de atención.
+              </li>
+              <li>
+                Toque el botón grande que dice <strong>&ldquo;Login&rdquo;</strong>
+                (Iniciar sesión).
+              </li>
+              <li>
+                La aplicación le pedirá un <strong>código de 6 dígitos</strong>. Revise
+                su correo electrónico, busque el mensaje con el código, escríbalo y
+                toque <strong>&ldquo;Verify&rdquo;</strong> (Verificar).
+              </li>
+            </ol>
+            <div class="shots">
+              <figure class="shot">
+                <img
+                  src="../assets/img1-login.jpg"
+                  width="600"
+                  height="1170"
+                  alt="Pantalla de inicio de sesión de la aplicación, con casillas para el usuario y la contraseña sobre un botón de Login."
+                />
+                <figcaption class="cap">
+                  <strong>Pantalla de inicio de sesión</strong>Escriba aquí su usuario y
+                  contraseña
+                </figcaption>
+              </figure>
+              <figure class="shot">
+                <img
+                  src="../assets/img2-otp.jpg"
+                  width="600"
+                  height="1234"
+                  alt="Pantalla de verificación, con seis casillas vacías para el código enviado a su correo."
+                />
+                <figcaption class="cap">
+                  <strong>Código de verificación</strong>Revise su correo: recibirá un
+                  código de 6 dígitos
+                </figcaption>
+              </figure>
+            </div>
+            <div class="note note--tip">
+              <span class="ico" aria-hidden="true">👆</span>
+              <p>
+                <strong>Face ID o huella digital:</strong> después de su primer inicio de
+                sesión puede activar Face ID, y así no tendrá que escribir su contraseña
+                nunca más.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="step">
+          <div class="head">
+            <span class="n" aria-hidden="true">3</span>
+            <div>
+              <h2>Busque Presión Arterial en la Pantalla Principal</h2>
+              <p>Un solo toque para llegar a su sección</p>
+            </div>
+          </div>
+          <div class="body">
+            <ol class="steps">
+              <li>
+                Después de iniciar sesión verá su <strong>pantalla principal</strong>.
+              </li>
+              <li>
+                Mire la parte de abajo, donde dice
+                <strong>&ldquo;Quick Access&rdquo;</strong> (Acceso rápido).
+              </li>
+              <li>
+                Toque el botón <strong>&ldquo;Blood Pressure&rdquo;</strong> (Presión
+                arterial). Tiene un ícono de corazón.
+              </li>
+            </ol>
+            <div class="shots">
+              <figure class="shot">
+                <img
+                  src="../assets/img3-home.jpg"
+                  width="600"
+                  height="1234"
+                  alt="Pantalla principal de la aplicación, con una fila de Quick Access abajo que contiene un botón de Blood Pressure."
+                />
+                <figcaption class="cap">
+                  <strong>Pantalla principal</strong>Toque &ldquo;Blood Pressure&rdquo; en
+                  &ldquo;Quick Access&rdquo;
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
+
+        <div class="section-label"><span>Conecte su dispositivo</span></div>
+
+        <section class="step">
+          <div class="head">
+            <span class="n" aria-hidden="true">4</span>
+            <div>
+              <h2>Encienda Su Monitor y Conéctelo</h2>
+              <p>Asegúrese de que el Bluetooth esté encendido</p>
+            </div>
+          </div>
+          <div class="body">
+            <ol class="steps">
+              <li>
+                Verifique que el <strong>Bluetooth esté encendido</strong> en su
+                teléfono. Vaya a Configuración → Bluetooth y revise que el interruptor
+                esté en verde.
+              </li>
+              <li>
+                Mantenga presionado el <strong>botón de encendido</strong> de su monitor
+                hasta que se prenda.
+              </li>
+              <li>
+                En la aplicación, toque el botón
+                <strong>&ldquo;Connect&rdquo;</strong> (Conectar) que está arriba en la
+                pantalla de presión arterial.
+              </li>
+              <li>
+                La aplicación se <strong>conectará sola</strong> en unos segundos.
+              </li>
+            </ol>
+            <div class="shots">
+              <figure class="shot">
+                <img
+                  src="../assets/img4-connect.jpg"
+                  width="600"
+                  height="1234"
+                  alt="Pantalla de presión arterial antes de conectar, con un botón de Connect en la parte de arriba."
+                />
+                <figcaption class="cap">
+                  <strong>Antes de conectar</strong>Toque el botón &ldquo;Connect&rdquo;
+                  arriba
+                </figcaption>
+              </figure>
+              <figure class="shot">
+                <img
+                  src="../assets/img5-paired.jpg"
+                  width="600"
+                  height="1234"
+                  alt="Confirmación que dice Connected to BP2A, con una marca verde."
+                />
+                <figcaption class="cap">
+                  <strong>¡Conectado!</strong>La marca verde significa que ya está listo
+                </figcaption>
+              </figure>
+            </div>
+            <div class="note note--ok">
+              <span class="ico" aria-hidden="true">✅</span>
+              <p>
+                Cuando vea <strong>&ldquo;Connected to BP2A&rdquo;</strong> (Conectado a
+                BP2A) con una marca verde, toque
+                <strong>&ldquo;Close&rdquo;</strong> (Cerrar) y ya está listo.
+              </p>
+            </div>
+            <div class="note note--tip">
+              <span class="ico" aria-hidden="true">📶</span>
+              <p>
+                <strong>Mantenga su teléfono cerca</strong>, al alcance del brazo,
+                mientras toma la lectura.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="step">
+          <div class="head">
+            <span class="n" aria-hidden="true">5</span>
+            <div>
+              <h2>Colóquese el Brazalete</h2>
+              <p>Colocarlo bien le da una lectura correcta</p>
+            </div>
+          </div>
+          <div class="body">
+            <p>
+              Antes de colocarse el brazalete,
+              <strong>siéntese tranquilo por 5 minutos</strong>. No tome café, no fume y
+              no haga ejercicio durante los 30 minutos antes de su lectura.
+            </p>
+            <div class="cuff">
+              <div>
+                <strong>Use su brazo izquierdo</strong>
+                <span>Con la palma hacia arriba, apoyado en una mesa</span>
+              </div>
+              <div>
+                <strong>Dos dedos por encima del codo</strong>
+                <span>El borde de abajo justo sobre el pliegue del codo</span>
+              </div>
+              <div>
+                <strong>Sobre la piel</strong>
+                <span>Súbase la manga primero</span>
+              </div>
+              <div>
+                <strong>El brazo a la altura del corazón</strong>
+                <span>Apoyado en la mesa, a la altura del pecho</span>
+              </div>
+            </div>
+            <div class="note note--warn">
+              <span class="ico" aria-hidden="true">⚠️</span>
+              <p>
+                <strong>Mientras toma la lectura:</strong> quédese quieto, respire
+                normalmente y no hable.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="step">
+          <div class="head">
+            <span class="n" aria-hidden="true">6</span>
+            <div>
+              <h2>Tome Su Lectura y Revise el Resultado</h2>
+              <p>Su lectura llega directo a su equipo de atención</p>
+            </div>
+          </div>
+          <div class="body">
+            <ol class="steps">
+              <li>
+                Presione el <strong>botón de inicio</strong> de su monitor. El brazalete
+                se inflará solo; esto es normal.
+              </li>
+              <li>
+                <strong>Quédese quieto y respire normalmente</strong> hasta que el
+                brazalete se desinfle, más o menos 30 a 60 segundos.
+              </li>
+              <li>
+                Su lectura aparece sola en la aplicación:
+                <strong>los números de su presión arterial y su pulso</strong>.
+              </li>
+              <li>
+                Su equipo de atención recibe su lectura <strong>automáticamente</strong>.
+                Ya puede cerrar la aplicación.
+              </li>
+            </ol>
+            <div class="shots">
+              <figure class="shot">
+                <img
+                  src="../assets/img6-result.jpg"
+                  width="600"
+                  height="1234"
+                  alt="Pantalla de resultado que muestra una lectura de presión arterial y el pulso."
+                />
+                <figcaption class="cap">
+                  <strong>Su pantalla de resultado</strong>Los números aparecen solos
+                  después de cada lectura
+                </figcaption>
+              </figure>
+            </div>
+            <div class="note note--ok">
+              <span class="ico" aria-hidden="true">🎉</span>
+              <p>
+                Eso es todo. Su lectura está lista y su equipo de atención ya la recibió.
+                Puede cerrar la aplicación.
+              </p>
+            </div>
+            <div class="note note--tip">
+              <span class="ico" aria-hidden="true">📅</span>
+              <p>
+                <strong>Cuándo tomar sus lecturas:</strong> una en la mañana antes de sus
+                medicamentos y una en la noche. Siga el horario que le indicó su médico.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="section-label"><span>Entienda sus números</span></div>
+
+      <section class="step bp-card">
+        <div class="head">
+          <span class="n" aria-hidden="true">📊</span>
+          <div>
+            <h2>¿Qué Significan Sus Números?</h2>
+            <p>Su equipo los revisa, pero aquí tiene una guía sencilla</p>
+          </div>
+        </div>
+        <div class="body">
+          <p>
+            La presión arterial son dos números, como <strong>120/78</strong>. El número
+            de arriba es la sistólica (cuando el corazón late). El número de abajo es la
+            diastólica (entre latidos).
+          </p>
+          <div class="table-wrap">
+            <table class="bp">
+              <caption>
+                Categorías de presión arterial
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Categoría</th>
+                  <th scope="col">Número de arriba</th>
+                  <th scope="col">Número de abajo</th>
+                  <th scope="col">Qué significa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="cat cat--low">Baja</span></td>
+                  <td class="num">Menos de 90</td>
+                  <td class="num">o menos de 60</td>
+                  <td>
+                    Esta lectura está más baja de lo habitual. En algunas personas
+                    eso es normal y no causa problemas. Avise a su equipo de
+                    atención si se siente mareado, aturdido, débil, con náuseas o
+                    confundido, si se desmaya, o si ve borroso o siente que el
+                    corazón le late fuerte o irregular.
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="cat cat--normal">Normal</span></td>
+                  <td class="num">Menos de 120</td>
+                  <td class="num">y menos de 80</td>
+                  <td>Muy bien: siga así.</td>
+                </tr>
+                <tr>
+                  <td><span class="cat cat--elevated">Elevada</span></td>
+                  <td class="num">120–129</td>
+                  <td class="num">y menos de 80</td>
+                  <td>Un poco alta. Su equipo la va a vigilar.</td>
+                </tr>
+                <tr>
+                  <td><span class="cat cat--stage1">Alta Etapa 1</span></td>
+                  <td class="num">130–139</td>
+                  <td class="num">o 80–89</td>
+                  <td>Es posible que su equipo lo llame.</td>
+                </tr>
+                <tr>
+                  <td><span class="cat cat--stage2">Alta Etapa 2</span></td>
+                  <td class="num">140 o más</td>
+                  <td class="num">o 90 o más</td>
+                  <td>Comuníquese pronto con su equipo.</td>
+                </tr>
+                <tr class="row-crisis">
+                  <td><span class="cat cat--crisis">Crisis ⚠️</span></td>
+                  <td class="num">Más de 180</td>
+                  <td class="num">o más de 120</td>
+                  <td>Llame al 911 de inmediato.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="source">
+            Los límites de las categorías siguen a la American Heart Association.
+          </p>
+          <div class="note note--danger">
+            <span class="ico" aria-hidden="true">🚨</span>
+            <p>
+              <strong>Llame al 911 de inmediato</strong> si su lectura pasa de 180/120 y
+              tiene síntomas: dolor de cabeza fuerte, dolor en el pecho, dificultad para
+              respirar o cambios en la vista.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-label section-label--faq"><span>Preguntas frecuentes</span></div>
+
+      <div class="faq-wrap">
+                <div class="faq">
+          <h3>Olvidé mi usuario o mi contraseña. ¿Qué hago?</h3>
+          <p>Escríbale a su coordinador de atención de 22RPM a
+            <a href="mailto:info@twentytwohealth.com">info@twentytwohealth.com</a> y se
+            los restablecen rápido.</p>
+        </div>
+                <div class="faq">
+          <h3>Mi dispositivo no se conecta. ¿Qué hago?</h3>
+          <p>Apague el Bluetooth y vuelva a encenderlo. Apague el monitor y préndalo otra
+            vez. Abra la aplicación, vaya a &ldquo;Blood Pressure&rdquo; y toque
+            &ldquo;Connect&rdquo;. Si sigue sin conectarse, escríbanos.</p>
+        </div>
+                <div class="faq">
+          <h3>¿Necesito Wi-Fi para que se envíen mis lecturas?</h3>
+          <p>Sí: su teléfono necesita Wi-Fi o servicio celular. Si toma una lectura sin
+            internet, se guarda y se envía sola cuando vuelva a tener conexión.</p>
+        </div>
+                <div class="faq">
+          <h3>Mi lectura salió muy alta o muy baja. ¿Debo preocuparme?</h3>
+          <p>Espere 2 o 3 minutos y tómela otra vez. Si sigue por encima de 180/120 y se
+            siente mal, llame al 911. Si no, su equipo de atención la revisa y se
+            comunicará con usted.</p>
+        </div>
+                <div class="faq">
+          <h3>¿Cómo sé que mi lectura se envió?</h3>
+          <p>En cuanto aparece en la aplicación, ya se envió. No tiene que hacer nada más:
+            su equipo de atención la ve enseguida.</p>
+        </div>
+                <div class="faq">
+          <h3>¿Qué pasa si se me olvida un día?</h3>
+          <p>No hay problema: tome su lectura al día siguiente. Trate de tomarlas a la
+            misma hora todos los días para obtener mejores resultados.</p>
+        </div>
+      </div>
+
+      <section class="support">
+        <h2>Siempre estamos aquí para ayudarle.</h2>
+        <p>
+          Si tiene cualquier dificultad, grande o pequeña, escríbanos. Con gusto le
+          explicamos cualquier paso.
+        </p>
+        <a href="mailto:info@twentytwohealth.com">✉️ Escríbanos</a>
+        <p class="print-only">
+          Correo electrónico: info@twentytwohealth.com
+        </p>
+      </section>
+    </main>
+
+    <footer class="guide-foot">
+      <p>&copy; 2026 22RPM Remote Patient Monitoring Services</p>
+      <p>
+        Esta guía es solo para fines informativos. Siga siempre las indicaciones de su
+        médico.
+      </p>
+    </footer>
+  </body>
+</html>
