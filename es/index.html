@@ -25,6 +25,15 @@
      the AHA hypotension boundary of under 90/60 and is deliberately worded
      around SYMPTOMS rather than the numbers: a low reading is not by itself
      an emergency. Please keep that framing if you reword it.
+
+  3. NEW WORDING, 2026-08-24 — step 2.4 and the "Código de verificación"
+     caption now cover both delivery channels for the 6-digit code. The
+     backend picks the channel from what the patient TYPES at sign-in
+     (auth.controller.js: a phone-shaped identifier sends SMS via Twilio,
+     an email address or a username sends email) and never sends both, so
+     the Spanish deliberately says "si inició sesión con su número de
+     teléfono" rather than tying it to how the account was set up. Keep
+     that distinction if you reword it.
   ============================================================================
 -->
 <html lang="es">
@@ -165,9 +174,11 @@
                 (Iniciar sesión).
               </li>
               <li>
-                La aplicación le pedirá un <strong>código de 6 dígitos</strong>. Revise
-                su correo electrónico, busque el mensaje con el código, escríbalo y
-                toque <strong>&ldquo;Verify&rdquo;</strong> (Verificar).
+                La aplicación le pedirá un <strong>código de 6 dígitos</strong>. Se le
+                envía por correo electrónico, o por mensaje de texto si inició sesión
+                con su número de teléfono. Revise primero su correo y, si no está ahí,
+                revise sus mensajes de texto. Escriba el código y toque
+                <strong>&ldquo;Verify&rdquo;</strong> (Verificar).
               </li>
             </ol>
             <div class="shots">
@@ -188,11 +199,11 @@
                   src="../assets/img2-otp.jpg"
                   width="600"
                   height="1234"
-                  alt="Pantalla de verificación, con seis casillas vacías para el código enviado a su correo."
+                  alt="Pantalla de verificación, con seis casillas vacías para el código que se le envió."
                 />
                 <figcaption class="cap">
-                  <strong>Código de verificación</strong>Revise su correo: recibirá un
-                  código de 6 dígitos
+                  <strong>Código de verificación</strong>Revise su correo o sus
+                  mensajes de texto
                 </figcaption>
               </figure>
             </div>
