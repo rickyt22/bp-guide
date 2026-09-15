@@ -16,8 +16,80 @@
     <link rel="icon" href="assets/logo.png" />
     <link rel="stylesheet" href="assets/brand.css" />
     <link rel="stylesheet" href="assets/guide.css" />
+
+    <style>
+      /* ---- New, publishable: platform tracks ------------------------------ */
+      .platform {
+        border: 2px solid var(--border-strong, #9aa9b6);
+        border-radius: var(--radius-md, 12px);
+        padding: 0.75rem;
+        margin-top: 1.25rem;
+      }
+      .platform > .platform-tag {
+        display: inline-block;
+        font-weight: 700;
+        font-size: 1.05rem;
+        padding: 0.3rem 0.85rem;
+        border-radius: 999px;
+        background: var(--brand-primary, #103c63);
+        color: #fff;
+        margin-bottom: 0.5rem;
+      }
+      .platform > p.platform-lede { margin: 0.25rem 0 0.75rem; }
+      .platform-note { margin-top: 0.6rem; }
+      .platform-note .tag { font-weight: 700; }
+      @media print {
+        .platform { border: 1pt solid #000; padding: 4pt; break-inside: avoid; }
+        .platform > .platform-tag { background: none !important; color: #000 !important; border: 1pt solid #000; }
+      }
+
+      /* ---- DRAFT-ONLY: delete everything below before publishing ---------- */
+      .draft-banner, .draft-note {
+        font-family: ui-monospace, Menlo, monospace;
+        font-size: 0.85rem;
+        background: #fff5cc;
+        border: 2px dashed #b58900;
+        color: #4a3b00;
+        border-radius: 8px;
+        padding: 0.6rem 0.8rem;
+        margin: 0.75rem 0;
+      }
+      .draft-banner { margin: 0; border-radius: 0; border-width: 0 0 2px; }
+      .draft-note strong, .draft-banner strong { color: #4a3b00; }
+      .shot--todo .ph {
+        aspect-ratio: 600 / 1211;
+        width: 100%;
+        border: 2px dashed #b58900;
+        border-radius: var(--radius-md, 12px);
+        background: #fffaf0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font: 0.72rem/1.3 ui-monospace, Menlo, monospace;
+        color: #4a3b00;
+        padding: 0.4rem;
+      }
+      .stub {
+        border: 3px dashed #b00020;
+        background: #fff0f2;
+        border-radius: var(--radius-md, 12px);
+        padding: 1rem;
+      }
+      .stub h3 { margin-top: 0; color: #b00020; }
+    </style>
   </head>
   <body>
+    <div class="draft-banner">
+      <strong>DRAFT, NOT FOR PATIENTS. DO NOT MERGE TO MAIN AS-IS</strong> (Pages publishes
+      <code>main</code>). Documents iOS app 1.0.50 (App Store build,
+      branch <code>fix/bp-auto-reconnect</code>). The Android track is a stub until the
+      Android checklist is done. Before publishing: Kinza clinical review, Spanish
+      translation (<code>/bp-guide/es/</code> shares <code>assets/</code>, see capture
+      notes), capture the screenshots, and remove all yellow/red draft boxes and the
+      draft-only styles.
+    </div>
+
     <a class="skip-link" href="#main">Skip to the instructions</a>
 
     <div class="topbar">
@@ -66,6 +138,7 @@
       <div class="section-label"><span>Getting started</span></div>
 
       <div class="steps-wrap">
+        <!-- ============ STEP 1 — SHARED (unchanged from live) ============ -->
         <section class="step">
           <div class="head">
             <span class="n" aria-hidden="true">1</span>
@@ -75,6 +148,12 @@
             </div>
           </div>
           <div class="body">
+            <div class="draft-note">
+              <strong>Review:</strong> this step is unchanged from the live page, but it
+              says the app is on Google Play. Nobody can confirm that from the repo, and
+              the Android build on <code>main</code> crashes at launch. Decide before
+              publishing: keep, or say "iPhone now, Android coming soon."
+            </div>
             <p>
               The 22RPM app connects your blood pressure monitor to your care team.
               You only need to download it once.
@@ -102,166 +181,278 @@
           </div>
         </section>
 
+        <!-- ============ STEP 2 — SHARED (login screens are identical) ============ -->
         <section class="step">
           <div class="head">
             <span class="n" aria-hidden="true">2</span>
             <div>
               <h2>Log In to the App</h2>
-              <p>Use the username and password your care team gave you</p>
+              <p>Use the login and password your care team gave you</p>
             </div>
           </div>
           <div class="body">
             <ol class="steps">
               <li>Open the <strong>22RPM app</strong>. You will see the login screen.</li>
               <li>
-                Type in the <strong>username and password</strong> your care team gave
-                you.
+                In the box called <strong>Email or Username</strong>, type the email,
+                username, or phone number your care team gave you.
               </li>
+              <li>Type your <strong>password</strong> in the box below it.</li>
               <li>Tap the big <strong>Login</strong> button.</li>
               <li>
-                The app will ask for a <strong>6-digit code</strong>. It is sent by
-                email, or by text message if you signed in with your phone number.
-                Check your email first, and your text messages if it is not there.
-                Type the code in and tap <strong>Verify</strong>.
+                A box called <strong>OTP Verification</strong> will ask for a
+                <strong>6-digit code</strong>. We send it by email, or by text message if
+                you logged in with your phone number. The box always says
+                &ldquo;email,&rdquo; so check your text messages too. Type the code and tap
+                <strong>Verify</strong>.
               </li>
             </ol>
             <div class="shots">
-              <figure class="shot">
-                <img
-                  src="assets/img1-login.jpg"
-                  width="600"
-                  height="1170"
-                  alt="The app login screen, with boxes for username and password above a Login button."
-                />
+              <figure class="shot shot--todo">
+                <div class="ph">CAPTURE #2<br />img1-login.jpg<br />(recapture)</div>
                 <figcaption class="cap">
-                  <strong>Login screen</strong>Enter your username and password here
+                  <strong>Login screen</strong>Type your login and password here
                 </figcaption>
               </figure>
-              <figure class="shot">
-                <img
-                  src="assets/img2-otp.jpg"
-                  width="600"
-                  height="1234"
-                  alt="The verification screen, with six empty boxes for the code that was sent to you."
-                />
+              <figure class="shot shot--todo">
+                <div class="ph">CAPTURE #3<br />img2-otp.jpg<br />(recapture)</div>
                 <figcaption class="cap">
-                  <strong>Verification code</strong>Check your email or text messages
-                  for the 6-digit code
+                  <strong>Verification code</strong>Type the 6-digit code from your email
+                  or text messages
                 </figcaption>
               </figure>
             </div>
+            <!-- Final alt text for the two images above:
+                 img1-login.jpg: "The app login screen, with an Email or Username box and a Password box above a Login button."
+                 img2-otp.jpg:   "A box titled OTP Verification with one space to type the 6-digit code, and Cancel and Verify buttons."
+                 (The live alt text says "six empty boxes"; the app has one box.) -->
+
+            <div class="platform-note note note--tip">
+              <span class="ico" aria-hidden="true">📱</span>
+              <p>
+                <span class="tag">iPhone:</span> the first time you open the app, before
+                you log in, your iPhone asks if <strong>22 RPM</strong> can use
+                <strong>Bluetooth</strong>. Tap <strong>Allow</strong> (some iPhones say
+                <strong>OK</strong>). The app needs Bluetooth to talk to your monitor.
+              </p>
+            </div>
+            <div class="shots">
+              <figure class="shot shot--todo">
+                <div class="ph">CAPTURE #1<br />ios-bluetooth.jpg<br />(new)</div>
+                <figcaption class="cap">
+                  <strong>iPhone: Bluetooth</strong>Tap &ldquo;Allow&rdquo;
+                </figcaption>
+              </figure>
+            </div>
+            <!-- alt: "An iPhone message asking to let 22 RPM use Bluetooth, with Don't Allow and Allow buttons." -->
+
             <div class="note note--tip">
               <span class="ico" aria-hidden="true">👆</span>
               <p>
-                <strong>Face ID / fingerprint:</strong> after your first login you can
-                set up Face ID, so you never have to type your password again.
+                <strong>Log in faster next time.</strong> After you log in, the app may ask
+                to turn on quick login. Tap <strong>Enable</strong>. Next time you will not
+                need your password or the 6-digit code.
               </p>
             </div>
-          </div>
-        </section>
-
-        <section class="step">
-          <div class="head">
-            <span class="n" aria-hidden="true">3</span>
-            <div>
-              <h2>Find Blood Pressure on the Home Screen</h2>
-              <p>One tap to get to your BP section</p>
-            </div>
-          </div>
-          <div class="body">
-            <ol class="steps">
-              <li>Once logged in, you will see your <strong>home screen</strong>.</li>
-              <li>Look at the bottom, under <strong>&ldquo;Quick Access.&rdquo;</strong></li>
-              <li>
-                Tap the <strong>Blood Pressure</strong> button — it has a heart icon.
-              </li>
-            </ol>
-            <div class="shots">
-              <figure class="shot">
-                <img
-                  src="assets/img3-home.jpg"
-                  width="600"
-                  height="1234"
-                  alt="The app home screen, with a Quick Access row at the bottom containing a Blood Pressure button."
-                />
-                <figcaption class="cap">
-                  <strong>Home screen</strong>Tap &ldquo;Blood Pressure&rdquo; under Quick
-                  Access
-                </figcaption>
-              </figure>
-            </div>
-          </div>
-        </section>
-
-        <div class="section-label"><span>Connecting your device</span></div>
-
-        <section class="step">
-          <div class="head">
-            <span class="n" aria-hidden="true">4</span>
-            <div>
-              <h2>Turn On Your Monitor and Connect</h2>
-              <p>Make sure Bluetooth is on — this only takes a moment</p>
-            </div>
-          </div>
-          <div class="body">
-            <ol class="steps">
-              <li>
-                Make sure <strong>Bluetooth is turned on</strong> on your phone. Go to
-                Settings → Bluetooth, and check the switch is green.
-              </li>
-              <li>
-                Press and hold the <strong>power button</strong> on your monitor until
-                it turns on.
-              </li>
-              <li>
-                In the app, tap the <strong>Connect</strong> button at the top of the
-                Blood Pressure screen.
-              </li>
-              <li>The app will <strong>connect automatically</strong> in a few seconds.</li>
-            </ol>
-            <div class="shots">
-              <figure class="shot">
-                <img
-                  src="assets/img4-connect.jpg"
-                  width="600"
-                  height="1234"
-                  alt="The Blood Pressure screen before connecting, with a Connect button at the top."
-                />
-                <figcaption class="cap">
-                  <strong>Before connecting</strong>Tap the &ldquo;Connect&rdquo; button at
-                  the top
-                </figcaption>
-              </figure>
-              <figure class="shot">
-                <img
-                  src="assets/img5-paired.jpg"
-                  width="600"
-                  height="1234"
-                  alt="A confirmation reading Connected to BP2A, with a green checkmark."
-                />
-                <figcaption class="cap">
-                  <strong>Successfully connected</strong>A green checkmark means you are
-                  ready
-                </figcaption>
-              </figure>
-            </div>
-            <div class="note note--ok">
-              <span class="ico" aria-hidden="true">✅</span>
+            <div class="platform-note">
               <p>
-                When you see <strong>&ldquo;Connected to BP2A&rdquo;</strong> with a green
-                checkmark, tap <strong>Close</strong> and you are ready.
+                <span class="tag">iPhone:</span> the message says
+                <strong>&ldquo;Enable Face ID?&rdquo;</strong>. It says Face ID even on
+                iPhones with a Home button. Those phones use your fingerprint instead. If
+                it does not work, tap <strong>Use Password Instead</strong>.
               </p>
-            </div>
-            <div class="note note--tip">
-              <span class="ico" aria-hidden="true">📶</span>
+              <div class="shots">
+                <figure class="shot shot--todo">
+                  <div class="ph">CAPTURE #4<br />ios-faceid.jpg<br />(new)</div>
+                  <figcaption class="cap">
+                    <strong>iPhone: quick login</strong>Tap &ldquo;Enable&rdquo;
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- alt: "A message asking Enable Face ID? with Not Now and Enable buttons." -->
               <p>
-                <strong>Keep your phone close by</strong> — within arm's reach during the
-                reading.
+                <span class="tag">Android:</span>
+                <span class="draft-note" style="display:inline-block;margin:0"
+                  >STUB. The Android wording is not final (see checklist B3).</span
+                >
               </p>
             </div>
           </div>
         </section>
+      </div>
 
+      <div class="section-label"><span>Connecting your device</span></div>
+
+      <p>
+        These steps are different on iPhone and Android. Follow the part for
+        <strong>your</strong> phone, then go to Step 5.
+      </p>
+
+      <!-- ==================== iPHONE TRACK ==================== -->
+      <div class="platform platform--ios">
+        <span class="platform-tag">iPhone</span>
+        <p class="platform-lede">Using an iPhone? Follow Steps 3 and 4 below.</p>
+
+        <div class="steps-wrap">
+          <section class="step">
+            <div class="head">
+              <span class="n" aria-hidden="true">3</span>
+              <div>
+                <h2>Open Blood Pressure</h2>
+                <p>One tap from your home screen</p>
+              </div>
+            </div>
+            <div class="body">
+              <ol class="steps">
+                <li>
+                  After you log in, you will see your <strong>home screen</strong>. It
+                  says <strong>Hello</strong> and your name at the top.
+                </li>
+                <li>
+                  Tap the <strong>Blood Pressure</strong> card, under
+                  <strong>&ldquo;Today's Readings.&rdquo;</strong> You can also tap the
+                  reminder above it that says <strong>&ldquo;Time for your blood pressure
+                  reading today.&rdquo;</strong>
+                </li>
+              </ol>
+              <div class="shots">
+                <figure class="shot shot--todo">
+                  <div class="ph">CAPTURE #5<br />ios-home.jpg<br />(new, replaces img3)</div>
+                  <figcaption class="cap">
+                    <strong>Home screen</strong>Tap the &ldquo;Blood Pressure&rdquo; card
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- alt: "The app home screen saying Hello, with a reminder card and a Blood Pressure card under Today's Readings." -->
+            </div>
+          </section>
+
+          <section class="step">
+            <div class="head">
+              <span class="n" aria-hidden="true">4</span>
+              <div>
+                <h2>Connect Your Monitor</h2>
+                <p>You only do this once</p>
+              </div>
+            </div>
+            <div class="body">
+              <ol class="steps">
+                <li>
+                  Make sure <strong>Bluetooth is turned on</strong> on your phone. Go to
+                  Settings → Bluetooth, and check the switch is green.
+                </li>
+                <li>
+                  Press and hold the <strong>power button</strong> on your monitor until
+                  it turns on.
+                </li>
+                <li>
+                  On the Blood Pressure screen, tap the <strong>Connect</strong> button at
+                  the top.
+                  <br />If the button is gray and says <strong>Connecting...</strong>,
+                  just wait. A list will open by itself in about 15 seconds.
+                </li>
+                <li>
+                  A list called <strong>Connect to BP Device</strong> opens. Tap your
+                  monitor. Its name starts with <strong>BP2</strong>, like
+                  <strong>BP2A</strong>.
+                </li>
+                <li>
+                  The list closes by itself. A green bar says
+                  <strong>&ldquo;Connected. Press Start on the BP machine to take your
+                  reading.&rdquo;</strong> You are ready.
+                </li>
+              </ol>
+              <div class="shots">
+                <figure class="shot shot--todo">
+                  <div class="ph">CAPTURE #6<br />img4-connect.jpg<br />(recapture)</div>
+                  <figcaption class="cap">
+                    <strong>Before connecting</strong>Tap &ldquo;Connect&rdquo; at the top
+                  </figcaption>
+                </figure>
+                <figure class="shot shot--todo">
+                  <div class="ph">CAPTURE #7<br />ios-device-list.jpg<br />(new)</div>
+                  <figcaption class="cap">
+                    <strong>Pick your monitor</strong>Tap the name that starts with BP2
+                  </figcaption>
+                </figure>
+                <figure class="shot shot--todo">
+                  <div class="ph">CAPTURE #8<br />ios-connected.jpg<br />(new, replaces img5)</div>
+                  <figcaption class="cap">
+                    <strong>Connected</strong>The green bar means you are ready
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- alts:
+                   img4-connect.jpg:    "The Blood Pressure screen before connecting. It says Disconnected, with a Connect button at the top."
+                   ios-device-list.jpg: "A list titled Connect to BP Device showing a monitor named BP2A with a Connect button."
+                   ios-connected.jpg:   "The Blood Pressure screen with a green bar saying Connected. Press Start on the BP machine to take your reading." -->
+              <div class="note note--tip">
+                <span class="ico" aria-hidden="true">💬</span>
+                <p>
+                  <strong>The first time</strong>, you may see &ldquo;Reconnecting to your
+                  device&hellip;&rdquo; or &ldquo;Couldn't connect to the cuff.&rdquo; This
+                  is normal. Wait for the list, then tap your monitor.
+                </p>
+              </div>
+              <div class="note note--ok">
+                <span class="ico" aria-hidden="true">✅</span>
+                <p>
+                  <strong>Next time is easier.</strong> Turn on your monitor, then open
+                  Blood Pressure. The app finds your monitor by itself. You will see
+                  &ldquo;Reconnecting to your device&hellip;&rdquo; and then the green bar.
+                  You do not need to tap Connect again.
+                </p>
+              </div>
+              <div class="note note--tip">
+                <span class="ico" aria-hidden="true">🔊</span>
+                <p>
+                  <strong>The app talks.</strong> You may hear &ldquo;Device
+                  connected&rdquo; or &ldquo;Measurement started.&rdquo; That is normal.
+                </p>
+              </div>
+              <div class="note note--tip">
+                <span class="ico" aria-hidden="true">📶</span>
+                <p>
+                  <strong>Keep your phone close by</strong> — within arm's reach during the
+                  reading.
+                </p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
+      <!-- ==================== ANDROID TRACK — STUB ==================== -->
+      <div class="platform platform--android">
+        <span class="platform-tag">Android</span>
+        <div class="stub" role="note">
+          <h3>⚠️ STUB: Android Steps 3 and 4 not written yet</h3>
+          <p>
+            <strong>Do not publish this box.</strong> Before launch, either hide the
+            Android track or replace this box with the real steps.
+          </p>
+          <p>
+            The Android steps can't be written yet: pairing works differently from
+            iPhone (extra system prompts, a Location switch, and today it scans every
+            time), and several parts are still changing. See the
+            <strong>Android checklist</strong> in
+            <code>CAPTURE-AND-ANDROID-CHECKLIST.md</code>.
+          </p>
+          <p>Outline to fill in (mirror the iPhone track, Steps 3–4):</p>
+          <ol>
+            <li>Step 3: open Blood Pressure from the Android home screen (depends on the Home redesign/cleanup).</li>
+            <li>Step 4: Bluetooth on, plus the <em>Location</em> switch if still required.</li>
+            <li>Step 4: system prompts: "Nearby devices" and "Location" (Android 12+), or "Location" only (Android 11 and older). Which option to pick.</li>
+            <li>Step 4: Connect Device → "Connect to BP2 Device" → Scan for Devices → tap monitor.</li>
+            <li>Step 4: what "connected" looks like, and whether it's once or every time.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="section-label"><span>Taking your reading</span></div>
+
+      <div class="steps-wrap">
+        <!-- ============ STEP 5 — SHARED (unchanged from live; clinical content) ============ -->
         <section class="step">
           <div class="head">
             <span class="n" aria-hidden="true">5</span>
@@ -303,6 +494,7 @@
           </div>
         </section>
 
+        <!-- ============ STEP 6 — SHARED monitor steps + platform notes ============ -->
         <section class="step">
           <div class="head">
             <span class="n" aria-hidden="true">6</span>
@@ -325,25 +517,52 @@
                 Your reading appears in the app automatically —
                 <strong>blood pressure numbers and pulse rate</strong>.
               </li>
-              <li>
-                Your care team receives your reading <strong>automatically</strong>. You
-                can close the app.
-              </li>
             </ol>
-            <div class="shots">
-              <figure class="shot">
-                <img
-                  src="assets/img6-result.jpg"
-                  width="600"
-                  height="1234"
-                  alt="The result screen showing a blood pressure reading and pulse rate."
-                />
-                <figcaption class="cap">
-                  <strong>Your result screen</strong>Numbers appear automatically after
-                  each reading
-                </figcaption>
-              </figure>
+
+            <div class="platform-note">
+              <p>
+                <span class="tag">iPhone:</span> a box pops up that says
+                <strong>Reading sent</strong> and <strong>&ldquo;Shared with your care
+                team.&rdquo;</strong> Tap <strong>Done</strong>.
+              </p>
+              <div class="shots">
+                <figure class="shot shot--todo">
+                  <div class="ph">CAPTURE #9<br />ios-reading-sent.jpg<br />(new)</div>
+                  <figcaption class="cap">
+                    <strong>Reading sent</strong>Tap &ldquo;Done&rdquo;
+                  </figcaption>
+                </figure>
+                <figure class="shot shot--todo">
+                  <div class="ph">CAPTURE #10<br />img6-result.jpg<br />(recapture)</div>
+                  <figcaption class="cap">
+                    <strong>Your result screen</strong>Your numbers stay on the screen
+                  </figcaption>
+                </figure>
+              </div>
+              <!-- alts:
+                   ios-reading-sent.jpg: "A box saying Reading sent, with the blood pressure numbers, Shared with your care team, and a Done button."
+                   img6-result.jpg:      "The Blood Pressure screen showing the final result and pulse rate, with past readings below." -->
+              <p>
+                If the box says <strong>Reading saved</strong> instead, your phone is not
+                online right now. Your reading is safe. It will send by itself when your
+                phone is back on Wi-Fi or cell service. You do not need to take it again.
+              </p>
+              <p>
+                When your monitor turns itself off after the reading, the app may say
+                &ldquo;Device disconnected&rdquo; out loud. Then it may show
+                &ldquo;Couldn't connect to the cuff&rdquo; and the device list. That is
+                normal. Your reading is already saved. Tap <strong>Close</strong>.
+              </p>
+              <p>
+                <span class="tag">Android:</span>
+                <span class="draft-note" style="display:inline-block;margin:0"
+                  >STUB. Android shows a short message instead of a "Reading sent" box,
+                  and until the outbox lands it does not save readings taken offline
+                  (checklist B7).</span
+                >
+              </p>
             </div>
+
             <div class="note note--ok">
               <span class="ico" aria-hidden="true">🎉</span>
               <p>
@@ -362,6 +581,7 @@
         </section>
       </div>
 
+      <!-- ============ NUMBERS — SHARED (unchanged from live; clinical content) ============ -->
       <div class="section-label"><span>Understanding your numbers</span></div>
 
       <section class="step bp-card">
@@ -451,37 +671,47 @@
         </div>
       </section>
 
+      <!-- ============ FAQ — shared, with platform-specific answers marked ============ -->
       <div class="section-label section-label--faq"><span>Common questions</span></div>
 
       <div class="faq-wrap">
-                <div class="faq">
+        <div class="faq">
           <h3>I forgot my username or password. What do I do?</h3>
           <p>Email your 22RPM care coordinator at
             <a href="mailto:info@twentytwohealth.com">info@twentytwohealth.com</a> and
             they will reset it for you quickly.</p>
         </div>
-                <div class="faq">
+        <div class="faq">
           <h3>My device won't connect. What should I do?</h3>
-          <p>Turn Bluetooth off and back on. Turn the monitor off and on. Open the app,
-            go to Blood Pressure, and tap Connect. If it still will not connect, email
+          <p><strong>iPhone:</strong> Make sure your monitor is on. Turn Bluetooth off and
+            back on. Go back to the home screen, then open Blood Pressure again. Wait for
+            the list to open, and tap your monitor. If it still will not connect, email
             us.</p>
+          <p class="draft-note">STUB, Android answer: pending (Location switch,
+            permissions, scan every visit; see checklist).</p>
         </div>
-                <div class="faq">
+        <div class="faq">
           <h3>Do I need Wi-Fi for my readings to send?</h3>
-          <p>Yes — your phone needs Wi-Fi or cell service. If you take a reading without
-            internet, it is stored and sends automatically once you reconnect.</p>
+          <p>Your phone needs Wi-Fi or cell service to send a reading. On iPhone, if you
+            take a reading without internet, the app says <strong>Reading saved</strong>
+            and sends it by itself once you are back online.</p>
+          <p class="draft-note">Android: today a reading taken offline is lost, so this
+            promise is iPhone-only until the Android outbox ships (checklist B7).</p>
         </div>
-                <div class="faq">
+        <div class="faq">
           <h3>My reading seems very high or low. Should I worry?</h3>
           <p>Wait 2–3 minutes and take it again. If it is still over 180/120 and you feel
             unwell, call 911. Otherwise your care team monitors it and will contact you.</p>
         </div>
-                <div class="faq">
+        <div class="faq">
           <h3>How do I know my reading was sent?</h3>
-          <p>As soon as it appears in the app, it has been sent. There are no extra steps
-            — your care team sees it right away.</p>
+          <p><strong>iPhone:</strong> a box says <strong>Reading sent</strong> and
+            &ldquo;Shared with your care team.&rdquo; If it says
+            <strong>Reading saved</strong>, it will send by itself when you are back
+            online.</p>
+          <p class="draft-note">STUB, Android answer: pending.</p>
         </div>
-                <div class="faq">
+        <div class="faq">
           <h3>What if I miss a day?</h3>
           <p>That's okay — just take your reading the next day. Try to take readings at
             the same times each day for the best results.</p>
