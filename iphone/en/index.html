@@ -34,20 +34,6 @@
       }
       .draft-banner { margin: 0; border-radius: 0; border-width: 0 0 2px; }
       .draft-note strong, .draft-banner strong { color: #4a3b00; }
-      .shot--todo .ph {
-        aspect-ratio: 600 / 1219;
-        width: 100%;
-        border: 2px dashed #b58900;
-        border-radius: var(--radius-md, 12px);
-        background: #fffaf0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        font: 0.72rem/1.3 ui-monospace, Menlo, monospace;
-        color: #4a3b00;
-        padding: 0.4rem;
-      }
       .stub {
         border: 3px dashed #b00020;
         background: #fff0f2;
@@ -62,13 +48,11 @@
       <strong>DRAFT, NOT FOR PATIENTS. DO NOT MERGE TO MAIN AS-IS</strong> (Pages publishes
       <code>main</code>). The iPhone guide for iOS app 1.0.50 (App Store build, branch
       <code>fix/bp-auto-reconnect</code>), with the real 1.0.50 screenshots.
-      <strong>ONE SCREENSHOT IS STILL MISSING</strong>: the OTP verification pop-up in
-      Step 2 (the old <code>img2-otp.jpg</code> cannot be reused — the retired "Revive
-      Medical Technologies" footer is visible behind the dialog). The other platform has
-      its own path now (<code>/android/</code>) and says the app is not ready yet, so this
-      page no longer points anyone at a store it is not in. Before publishing: capture
-      that screen, get Kinza's clinical review, and remove all yellow draft boxes and the
-      draft-only styles.
+      All screenshots are now the real 1.0.50 ones, including the OTP dialog and the
+      Face ID prompt. The other platform has its own path now (<code>/android/</code>) and
+      says the app is not ready yet, so this page no longer points anyone at a store it is
+      not in. Before publishing: get Kinza's clinical review, and remove all yellow draft
+      boxes and the draft-only styles.
     </div>
 
     <a class="skip-link" href="#main">Skip to the instructions</a>
@@ -188,11 +172,13 @@
                   <strong>Login screen</strong>Type your email, username, or phone number
                 </figcaption>
               </figure>
-              <figure class="shot shot--todo">
-                <div class="ph">
-                  MISSING SCREENSHOT<br />OTP verification pop-up<br />(old img2-otp.jpg
-                  shows the retired Revive footer)
-                </div>
+              <figure class="shot">
+                <img
+                  src="../../assets/ios-12-otp.jpg"
+                  width="600"
+                  height="1138"
+                  alt="A box titled OTP Verification with one space to type the 6-digit code, and Cancel and Verify buttons."
+                />
                 <figcaption class="cap">
                   <strong>Verification code</strong>Type the 6-digit code from your email
                   or text messages
@@ -200,10 +186,20 @@
               </figure>
             </div>
 
+            <div class="note note--warn">
+              <span class="ico" aria-hidden="true">✉️</span>
+              <p>
+                <strong>The box always says &ldquo;sent to your email.&rdquo;</strong> If
+                you logged in with your phone number, the code comes by
+                <strong>text message</strong> instead. If nothing arrives in your email,
+                check your text messages.
+              </p>
+            </div>
+
             <div class="platform-note note note--tip">
               <span class="ico" aria-hidden="true">📱</span>
               <p>
-                the first time you open the app, before
+                The first time you open the app, before
                 you log in, your iPhone asks if <strong>22 RPM</strong> can use
                 <strong>Bluetooth</strong>. Tap <strong>Allow</strong> (some iPhones say
                 <strong>OK</strong>). The app needs Bluetooth to talk to your monitor.
@@ -213,14 +209,30 @@
             <div class="note note--tip">
               <span class="ico" aria-hidden="true">👆</span>
               <p>
-                <strong>Log in faster next time.</strong> After you log in, the app may ask
-                to turn on quick login. Tap <strong>Enable</strong>. Next time you will not
-                need your password or the 6-digit code.
+                <strong>Log in faster next time.</strong> Right after you tap
+                <strong>Verify</strong>, the app asks
+                <strong>&ldquo;Enable Face ID?&rdquo;</strong> Tap
+                <strong>Enable</strong>. From then on the app opens with a look at your
+                face — no password, and no 6-digit code, every time.
               </p>
+            </div>
+            <div class="shots">
+              <figure class="shot">
+                <img
+                  src="../../assets/ios-13-faceid.jpg"
+                  width="600"
+                  height="1170"
+                  alt="A message asking Enable Face ID? Do you want to enable Face ID for faster login in the future? with Not Now and Enable buttons."
+                />
+                <figcaption class="cap">
+                  <strong>Face ID</strong>Tap &ldquo;Enable&rdquo; the first time you see
+                  this
+                </figcaption>
+              </figure>
             </div>
             <div class="platform-note">
               <p>
-                the message says
+                The message says
                 <strong>&ldquo;Enable Face ID?&rdquo;</strong>. It says Face ID even on
                 iPhones with a Home button. Those phones use your fingerprint instead. If
                 it does not work, tap <strong>Use Password Instead</strong>.
@@ -462,7 +474,7 @@
 
             <div class="platform-note">
               <p>
-                a box pops up that says
+                A box pops up that says
                 <strong>Reading sent</strong>, shows your numbers, and says
                 <strong>&ldquo;Shared with your care team.&rdquo;</strong> Tap
                 <strong>Done</strong>. That box is how you know it worked.
