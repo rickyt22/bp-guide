@@ -1,0 +1,871 @@
+<!doctype html>
+<!--
+  ============================================================================
+  NEEDS NATIVE-SPEAKER CLINICAL REVIEW BEFORE PATIENT DISTRIBUTION.
+
+  This Spanish version was written for patient readability in neutral Latin
+  American Spanish, not translated literally from the English. It has NOT been
+  reviewed by a native speaker with clinical background. Please have one review
+  it before this is printed or handed to patients.
+
+  Three things a reviewer should check first:
+
+  1. UI LABELS ARE DELIBERATELY LEFT IN ENGLISH. The 22RPM app has no Spanish
+     localization — "Email, Username, or Phone", "Login", "Verify", "Connect",
+     "Close", "Done", "Blood Pressure", "Today's Readings", "Synced",
+     "Waiting", "Readings", "Learn", "Profile" and "+ Add" are hardcoded
+     English strings (rpm-ios-app 1.0.50). So every on-screen button is named
+     here in English, in quotes, with a Spanish gloss after it. Translating
+     those labels would send a patient looking for buttons that do not exist.
+     App Store / Play Store buttons ARE localized by Apple and Google, so those
+     remain in Spanish.
+
+  2. All numbers, units and blood pressure thresholds are identical to the
+     English version, digit for digit, and match classifyBP() in
+     22rpm/rpm-dashboard-v1.0 (src/utils/bpClassifier.js). The "Baja" row uses
+     the AHA hypotension boundary of under 90/60 and is deliberately worded
+     around SYMPTOMS rather than the numbers: a low reading is not by itself
+     an emergency. Please keep that framing if you reword it.
+
+  3. NEW WORDING, 2026-09-17 — rewritten for app 1.0.50 with the real
+     screenshots. New passages a reviewer should read closely:
+       - the identifier field is now "Email, Username, or Phone" (the backend
+         accepts a phone number and sends the code by SMS: auth.controller.js
+         looksLikePhone), so step 2 says correo, usuario O número de teléfono;
+       - step 4 tells the patient that the ~15-second wait and the message
+         "Couldn't connect to the cuff" are NORMAL the first time;
+       - step 6 describes the "Reading sent" box, the home state "Blood
+         pressure done for today", the "✓ Synced" / "↑ Waiting" pills, and the
+         SAME "couldn't connect" message appearing after every reading once the
+         cuff powers itself off — also normal;
+       - "Más en la aplicación" covers the four bottom tabs.
+  ============================================================================
+-->
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cómo Usar Su Monitor de Presión Arterial | 22RPM</title>
+    <meta
+      name="description"
+      content="Guía paso a paso para su monitor de presión arterial 22RPM: instale la aplicación, inicie sesión, conecte el monitor, tome una lectura y entienda sus números."
+    />
+
+    <link rel="alternate" hreflang="es" href="https://twentytwohealth.com/bp-guide/iphone/es/" />
+    <link rel="alternate" hreflang="en" href="https://twentytwohealth.com/bp-guide/iphone/en/" />
+    <link rel="alternate" hreflang="x-default" href="https://twentytwohealth.com/bp-guide/iphone/en/" />
+
+    <link rel="icon" href="../../assets/logo.png" />
+    <link rel="stylesheet" href="../../assets/brand.css" />
+    <link rel="stylesheet" href="../../assets/guide.css" />
+
+    <style>
+      /* Spacing for notes that follow a step's numbered list. */
+      .platform-note { margin-top: 0.6rem; }
+
+      /* ---- DRAFT-ONLY: delete everything below before publishing ---------- */
+      .draft-banner, .draft-note {
+        font-family: ui-monospace, Menlo, monospace;
+        font-size: 0.85rem;
+        background: #fff5cc;
+        border: 2px dashed #b58900;
+        color: #4a3b00;
+        border-radius: 8px;
+        padding: 0.6rem 0.8rem;
+        margin: 0.75rem 0;
+      }
+      .draft-banner { margin: 0; border-radius: 0; border-width: 0 0 2px; }
+      .draft-note strong, .draft-banner strong { color: #4a3b00; }
+      .shot--todo .ph {
+        aspect-ratio: 600 / 1219;
+        width: 100%;
+        border: 2px dashed #b58900;
+        border-radius: var(--radius-md, 12px);
+        background: #fffaf0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font: 0.72rem/1.3 ui-monospace, Menlo, monospace;
+        color: #4a3b00;
+        padding: 0.4rem;
+      }
+      .stub {
+        border: 3px dashed #b00020;
+        background: #fff0f2;
+        border-radius: var(--radius-md, 12px);
+        padding: 1rem;
+      }
+      .stub h3 { margin-top: 0; color: #b00020; }
+    </style>
+  </head>
+  <body>
+    <div class="draft-banner">
+      <strong>DRAFT, NOT FOR PATIENTS. DO NOT MERGE TO MAIN AS-IS</strong> (Pages publishes
+      <code>main</code>). Spanish iPhone guide for 1.0.50, with the real screenshots.
+      <strong>NEEDS NATIVE-SPEAKER CLINICAL REVIEW</strong> (see the comment at the top of
+      this file) and <strong>one screenshot is still missing</strong>: the OTP
+      verification pop-up in step 2 (the old <code>img2-otp.jpg</code> cannot be reused —
+      the retired "Revive Medical Technologies" footer is visible behind the dialog). The
+      other platform has its own path now (<code>/android/</code>), so this page no longer
+      points anyone at a store it is not in. Before publishing: capture that screen and
+      remove all yellow draft boxes and the draft-only styles.
+    </div>
+
+    <a class="skip-link" href="#main">Ir a las instrucciones</a>
+
+    <div class="topbar">
+      <a class="back" href="../../">&larr; Elegir otro teléfono</a>
+      <div class="langs">
+        <span id="lang-label">Idioma / Language</span>
+        <ul aria-labelledby="lang-label">
+          <li><a href="../en/" lang="en" hreflang="en">English</a></li>
+          <li><a href="./" aria-current="true" lang="es">Español</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <header class="guide-head">
+      <img
+        src="../../assets/logo.png"
+        width="275"
+        height="289"
+        alt="Logotipo de 22RPM: un corazón formado por una mano abierta y una figura humana."
+      />
+      <div>
+        <div class="wordmark">22RPM</div>
+        <p>Servicios de Monitoreo Remoto de Pacientes</p>
+      </div>
+      <span class="print-title">Guía del Monitor de Presión Arterial</span>
+    </header>
+
+    <div class="hero">
+      <span class="badge">Guía para el paciente · iPhone</span>
+      <h1>Cómo Usar Su Monitor de Presión Arterial</h1>
+      <p>Instrucciones sencillas, paso a paso. Su equipo de atención siempre está aquí para ayudarle.</p>
+    </div>
+
+    <main class="container" id="main">
+      <div class="intro">
+        <strong>¡Bienvenido a 22RPM!</strong>
+        Su médico le entregó un monitor de presión arterial para que su equipo de
+        atención pueda cuidar su salud desde su casa. Esta guía le explica todo, un
+        paso sencillo a la vez.
+        <strong style="display:inline;font-size:inherit"
+          >Si en algún momento tiene dificultad, escríbanos y le ayudamos.</strong
+        >
+      </div>
+
+      <div class="note note--tip" style="margin-top:1rem">
+        <span class="ico" aria-hidden="true">📱</span>
+        <p>
+          La aplicación 22RPM está en inglés. En esta guía, los botones aparecen con su
+          nombre en inglés entre comillas &mdash; tal como los verá en la pantalla
+          &mdash; y su significado en español al lado.
+        </p>
+      </div>
+
+      <div class="section-label"><span>Para comenzar</span></div>
+
+      <div class="steps-wrap">
+        <!-- ============ PASO 1 ============ -->
+        <section class="step">
+          <div class="head">
+            <span class="n" aria-hidden="true">1</span>
+            <div>
+              <h2>Descargue la Aplicación 22RPM</h2>
+              <p>Descarga gratuita desde la App Store</p>
+            </div>
+          </div>
+          <div class="body">
+            <p>
+              La aplicación 22RPM conecta su monitor de presión arterial con su equipo
+              de atención. Solo necesita descargarla una vez.
+            </p>
+            <ol class="steps">
+              <li>Tome su iPhone y busque la <strong>App Store</strong>.</li>
+              <li>Toque la barra de búsqueda y escriba: <strong>22RPM</strong></li>
+              <li>Toque <strong>Obtener</strong> y espere a que termine.</li>
+              <li>
+                Cuando termine de descargarse, toque <strong>Abrir</strong> para iniciar
+                la aplicación.
+              </li>
+            </ol>
+            <div class="note note--tip">
+              <span class="ico" aria-hidden="true">💡</span>
+              <p>
+                <strong>¿Necesita ayuda?</strong> Pídale ayuda a un familiar o escríbanos
+                a <a href="mailto:info@twentytwohealth.com">info@twentytwohealth.com</a> y
+                con gusto le ayudamos.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ PASO 2 ============ -->
+        <section class="step">
+          <div class="head">
+            <span class="n" aria-hidden="true">2</span>
+            <div>
+              <h2>Inicie Sesión en la Aplicación</h2>
+              <p>Use los datos que le dio su equipo de atención</p>
+            </div>
+          </div>
+          <div class="body">
+            <ol class="steps">
+              <li>
+                Abra la aplicación <strong>22RPM</strong>. Verá la pantalla de inicio de
+                sesión.
+              </li>
+              <li>
+                En la casilla que dice
+                <strong>&ldquo;Email, Username, or Phone&rdquo;</strong> (correo, usuario
+                o teléfono), escriba el correo electrónico, el usuario o el número de
+                teléfono que le dio su equipo de atención.
+              </li>
+              <li>
+                Escriba su contraseña en la casilla de abajo, donde dice
+                <strong>&ldquo;Password&rdquo;</strong> (contraseña).
+              </li>
+              <li>
+                Toque el botón grande que dice <strong>&ldquo;Login&rdquo;</strong>
+                (Iniciar sesión).
+              </li>
+              <li>
+                Aparecerá una ventana que dice
+                <strong>&ldquo;OTP Verification&rdquo;</strong> (Verificación) y le pedirá
+                un <strong>código de 6 dígitos</strong>. Se lo enviamos por correo
+                electrónico, o por mensaje de texto si inició sesión con su número de
+                teléfono. La ventana siempre dice &ldquo;email&rdquo; (correo), así que
+                revise también sus mensajes de texto. Escriba el código y toque
+                <strong>&ldquo;Verify&rdquo;</strong> (Verificar).
+              </li>
+            </ol>
+            <div class="shots">
+              <figure class="shot">
+                <img
+                  src="../../assets/ios-01-login.jpg"
+                  width="600"
+                  height="1219"
+                  alt="Pantalla de inicio de sesión de la aplicación, con una casilla que dice Email, Username, or Phone y otra para la contraseña, sobre un botón de Login."
+                />
+                <figcaption class="cap">
+                  <strong>Pantalla de inicio de sesión</strong>Escriba aquí su correo,
+                  usuario o teléfono
+                </figcaption>
+              </figure>
+              <figure class="shot shot--todo">
+                <div class="ph">
+                  MISSING SCREENSHOT<br />OTP verification pop-up<br />(old img2-otp.jpg
+                  shows the retired Revive footer)
+                </div>
+                <figcaption class="cap">
+                  <strong>Código de verificación</strong>Revise su correo o sus mensajes
+                  de texto
+                </figcaption>
+              </figure>
+            </div>
+
+            <div class="platform-note note note--tip">
+              <span class="ico" aria-hidden="true">📱</span>
+              <p>
+                la primera vez que abre la aplicación,
+                antes de iniciar sesión, su iPhone le pregunta si
+                <strong>22 RPM</strong> puede usar <strong>Bluetooth</strong>. Toque
+                <strong>&ldquo;Allow&rdquo;</strong> (Permitir); en algunos iPhone el
+                botón dice <strong>&ldquo;OK&rdquo;</strong>. La aplicación necesita el
+                Bluetooth para hablar con su monitor.
+              </p>
+            </div>
+
+            <div class="note note--tip">
+              <span class="ico" aria-hidden="true">👆</span>
+              <p>
+                <strong>Entre más rápido la próxima vez.</strong> Después de iniciar
+                sesión, la aplicación puede ofrecerle el inicio de sesión rápido. Toque
+                <strong>&ldquo;Enable&rdquo;</strong> (Activar). La próxima vez no
+                necesitará su contraseña ni el código de 6 dígitos.
+              </p>
+            </div>
+            <div class="platform-note">
+              <p>
+                el mensaje dice
+                <strong>&ldquo;Enable Face ID?&rdquo;</strong> (¿Activar Face ID?). Dice
+                Face ID incluso en los iPhone que tienen botón de inicio; esos teléfonos
+                usan su huella digital. Si no funciona, toque
+                <strong>&ldquo;Use Password Instead&rdquo;</strong> (Usar la contraseña).
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="section-label"><span>Conecte su dispositivo</span></div>
+
+            <div class="steps-wrap">
+        <section class="step">
+          <div class="head">
+            <span class="n" aria-hidden="true">3</span>
+            <div>
+              <h2>Abra la Sección de Presión Arterial</h2>
+              <p>Un solo toque desde la pantalla principal</p>
+            </div>
+          </div>
+          <div class="body">
+            <ol class="steps">
+              <li>
+                Después de iniciar sesión verá su <strong>pantalla principal</strong>.
+                Arriba dice <strong>&ldquo;Hello&rdquo;</strong> (Hola) y su nombre.
+              </li>
+              <li>
+                Toque el recordatorio que dice
+                <strong>&ldquo;Time for your blood pressure reading today&rdquo;</strong>
+                (Es hora de su lectura de presión arterial de hoy). Más tarde en el día
+                dice <strong>&ldquo;There's still time to take your blood pressure
+                today&rdquo;</strong> (Todavía tiene tiempo de tomar su presión hoy).
+              </li>
+              <li>
+                También puede tocar la tarjeta
+                <strong>&ldquo;Blood Pressure&rdquo;</strong> (Presión arterial) que
+                está más abajo, en <strong>&ldquo;Today's Readings&rdquo;</strong> (Sus
+                lecturas de hoy).
+              </li>
+            </ol>
+            <div class="shots">
+              <figure class="shot">
+                <img
+                  src="../../assets/ios-02-home-prompt.jpg"
+                  width="600"
+                  height="1173"
+                  alt="Pantalla principal de la aplicación. Dice Hello y el nombre del paciente, con un recordatorio para tomar la presión arterial y una tarjeta de Blood Pressure en Today's Readings."
+                />
+                <figcaption class="cap">
+                  <strong>Pantalla principal</strong>Toque el recordatorio o la tarjeta
+                  &ldquo;Blood Pressure&rdquo;
+                </figcaption>
+              </figure>
+            </div>
+            <div class="note note--tip">
+              <span class="ico" aria-hidden="true">👀</span>
+              <p>
+                Las otras tarjetas &mdash; Blood Glucose (glucosa), Oxygen (oxígeno),
+                Weight (peso) y Temperature (temperatura) &mdash; dicen
+                <strong>&ldquo;Not included&rdquo;</strong> (No incluido). Eso es
+                normal: su plan es de presión arterial.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="step">
+          <div class="head">
+            <span class="n" aria-hidden="true">4</span>
+            <div>
+              <h2>Conecte Su Monitor</h2>
+              <p>Esto se hace una sola vez</p>
+            </div>
+          </div>
+          <div class="body">
+            <ol class="steps">
+              <li>
+                Verifique que el <strong>Bluetooth esté encendido</strong> en su
+                teléfono. Vaya a Configuración → Bluetooth y revise que el interruptor
+                esté en verde.
+              </li>
+              <li>
+                Mantenga presionado el <strong>botón de encendido</strong> de su monitor
+                hasta que se prenda.
+              </li>
+              <li>
+                En la pantalla de presión arterial, toque el botón
+                <strong>&ldquo;Connect&rdquo;</strong> (Conectar) que está arriba.
+              </li>
+              <li>
+                Se abre una lista que dice
+                <strong>&ldquo;Connect to BP Device&rdquo;</strong> (Conectar con el
+                monitor). Toque su monitor: su nombre empieza con
+                <strong>BP2</strong>, por ejemplo <strong>BP2A 2803</strong>.
+              </li>
+              <li>
+                La lista se cierra sola. Una barra verde dice
+                <strong>&ldquo;Connected. Press Start on the BP machine to take your
+                reading.&rdquo;</strong> (Conectado. Presione el botón de inicio del
+                monitor para tomar su lectura). Ya está listo.
+              </li>
+            </ol>
+            <div class="shots">
+              <figure class="shot">
+                <img
+                  src="../../assets/ios-03-bp-disconnected.jpg"
+                  width="600"
+                  height="1194"
+                  alt="Pantalla de presión arterial antes de conectar. Dice Blood Pressure Monitor, Disconnected, con un botón de Connect."
+                />
+                <figcaption class="cap">
+                  <strong>Antes de conectar</strong>Toque &ldquo;Connect&rdquo; arriba
+                </figcaption>
+              </figure>
+              <figure class="shot">
+                <img
+                  src="../../assets/ios-04-connect-popup.jpg"
+                  width="600"
+                  height="1190"
+                  alt="Ventana que dice Connect to BP Device, buscando dispositivos, con un monitor llamado BP2A 2803 y un botón de Connect."
+                />
+                <figcaption class="cap">
+                  <strong>Elija su monitor</strong>Toque el nombre que empieza con BP2
+                </figcaption>
+              </figure>
+              <figure class="shot">
+                <img
+                  src="../../assets/ios-05-bp-connected.jpg"
+                  width="600"
+                  height="1200"
+                  alt="Pantalla de presión arterial con una barra verde que dice Connected. Press Start on the BP machine to take your reading."
+                />
+                <figcaption class="cap">
+                  <strong>¡Conectado!</strong>La barra verde significa que ya está listo
+                </figcaption>
+              </figure>
+            </div>
+            <div class="note note--tip">
+              <span class="ico" aria-hidden="true">⏳</span>
+              <p>
+                <strong>La primera vez tarda unos 15 segundos, y eso es normal.</strong>
+                El botón puede ponerse gris y decir
+                <strong>&ldquo;Connecting...&rdquo;</strong> (Conectando) mientras la
+                aplicación busca su monitor. Después puede aparecer el mensaje
+                <strong>&ldquo;Couldn't connect to the cuff. Check that it's turned
+                on.&rdquo;</strong> (No se pudo conectar con el brazalete. Revise que
+                esté encendido). No pasa nada malo: espere un momento y la lista se abre
+                sola. Toque su monitor en la lista.
+              </p>
+            </div>
+            <div class="note note--ok">
+              <span class="ico" aria-hidden="true">✅</span>
+              <p>
+                <strong>La próxima vez es más fácil.</strong> Encienda su monitor y abra
+                la sección de presión arterial. La aplicación lo encuentra sola: aparece
+                marcado como <strong>&ldquo;Saved Device&rdquo;</strong> (Dispositivo
+                guardado). Ya no tiene que tocar &ldquo;Connect&rdquo;.
+              </p>
+            </div>
+            <div class="note note--tip">
+              <span class="ico" aria-hidden="true">🔊</span>
+              <p>
+                <strong>La aplicación habla.</strong> Puede escuchar &ldquo;Device
+                connected&rdquo; o &ldquo;Measurement started&rdquo;, en inglés. Eso es
+                normal.
+              </p>
+            </div>
+            <div class="note note--tip">
+              <span class="ico" aria-hidden="true">📶</span>
+              <p>
+                <strong>Mantenga su teléfono cerca</strong>, al alcance del brazo,
+                mientras toma la lectura.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="section-label"><span>Tome su lectura</span></div>
+
+      <div class="steps-wrap">
+        <!-- ============ PASO 5 — contenido clínico, sin cambios ============ -->
+        <section class="step">
+          <div class="head">
+            <span class="n" aria-hidden="true">5</span>
+            <div>
+              <h2>Colóquese el Brazalete</h2>
+              <p>Colocarlo bien le da una lectura correcta</p>
+            </div>
+          </div>
+          <div class="body">
+            <p>
+              Antes de colocarse el brazalete,
+              <strong>siéntese tranquilo por 5 minutos</strong>. No tome café, no fume y
+              no haga ejercicio durante los 30 minutos antes de su lectura.
+            </p>
+            <div class="cuff">
+              <div>
+                <strong>Use su brazo izquierdo</strong>
+                <span>Con la palma hacia arriba, apoyado en una mesa</span>
+              </div>
+              <div>
+                <strong>Dos dedos por encima del codo</strong>
+                <span>El borde de abajo justo sobre el pliegue del codo</span>
+              </div>
+              <div>
+                <strong>Sobre la piel</strong>
+                <span>Súbase la manga primero</span>
+              </div>
+              <div>
+                <strong>El brazo a la altura del corazón</strong>
+                <span>Apoyado en la mesa, a la altura del pecho</span>
+              </div>
+            </div>
+            <div class="note note--warn">
+              <span class="ico" aria-hidden="true">⚠️</span>
+              <p>
+                <strong>Mientras toma la lectura:</strong> quédese quieto, respire
+                normalmente y no hable.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ PASO 6 ============ -->
+        <section class="step">
+          <div class="head">
+            <span class="n" aria-hidden="true">6</span>
+            <div>
+              <h2>Tome Su Lectura y Revise el Resultado</h2>
+              <p>Su lectura llega directo a su equipo de atención</p>
+            </div>
+          </div>
+          <div class="body">
+            <ol class="steps">
+              <li>
+                Presione el <strong>botón de inicio</strong> de su monitor. El brazalete
+                se inflará solo; esto es normal.
+              </li>
+              <li>
+                <strong>Quédese quieto y respire normalmente</strong> hasta que el
+                brazalete se desinfle, más o menos 30 a 60 segundos.
+              </li>
+              <li>
+                Su lectura aparece sola en la aplicación:
+                <strong>los números de su presión arterial y su pulso</strong>.
+              </li>
+            </ol>
+
+            <div class="platform-note">
+              <p>
+                aparece una ventana que dice
+                <strong>&ldquo;Reading sent&rdquo;</strong> (Lectura enviada), muestra sus
+                números y dice <strong>&ldquo;Shared with your care team&rdquo;</strong>
+                (Compartida con su equipo de atención). Toque
+                <strong>&ldquo;Done&rdquo;</strong> (Listo). Esa ventana es la señal de
+                que todo salió bien.
+              </p>
+              <p>
+                Después, su pantalla principal dice
+                <strong>&ldquo;Blood pressure done for today&rdquo;</strong> (Presión
+                arterial lista por hoy) con la hora, y su tarjeta de presión arterial
+                muestra sus números con la marca verde
+                <strong>&ldquo;✓ Synced&rdquo;</strong> (Enviada). Ya terminó por hoy.
+              </p>
+              <div class="shots">
+                <figure class="shot">
+                  <img
+                    src="../../assets/ios-06-reading-sent.jpg"
+                    width="600"
+                    height="1119"
+                    alt="Ventana con una marca verde que dice Reading sent, 125 sobre 76 mmHg, Shared with your care team, y un botón que dice Done."
+                  />
+                  <figcaption class="cap">
+                    <strong>Lectura enviada</strong>Toque &ldquo;Done&rdquo;
+                  </figcaption>
+                </figure>
+                <figure class="shot">
+                  <img
+                    src="../../assets/ios-07-home-done.jpg"
+                    width="600"
+                    height="1219"
+                    alt="Pantalla principal que dice Blood pressure done for today, con la hora, y una tarjeta de presión arterial con la lectura marcada como Synced."
+                  />
+                  <figcaption class="cap">
+                    <strong>Lista por hoy</strong>Su pantalla principal se lo confirma
+                  </figcaption>
+                </figure>
+              </div>
+              <p>
+                Si la ventana dice <strong>&ldquo;Reading saved&rdquo;</strong> (Lectura
+                guardada), su teléfono no tiene internet en ese momento. Su lectura está
+                segura y la tarjeta muestra <strong>&ldquo;↑ Waiting&rdquo;</strong> (En
+                espera). Se envía sola cuando su teléfono vuelva a tener Wi-Fi o servicio
+                celular. No necesita tomarla otra vez.
+              </p>
+            </div>
+
+            <div class="note note--tip">
+              <span class="ico" aria-hidden="true">🔌</span>
+              <p>
+                <strong>Después de la lectura, su monitor se apaga solo.</strong> La
+                aplicación puede decir &ldquo;Device disconnected&rdquo; en voz alta y
+                después mostrar otra vez el mensaje
+                <strong>&ldquo;Couldn't connect to the cuff&rdquo;</strong> y la lista de
+                dispositivos. <strong>Esto es normal y no significa que algo haya salido
+                mal</strong>: su lectura ya se guardó y se envió. Toque
+                <strong>&ldquo;Close&rdquo;</strong> (Cerrar).
+              </p>
+            </div>
+
+            <div class="note note--ok">
+              <span class="ico" aria-hidden="true">🎉</span>
+              <p>
+                Eso es todo. Su lectura está lista y su equipo de atención ya la recibió.
+                Puede cerrar la aplicación.
+              </p>
+            </div>
+            <div class="note note--tip">
+              <span class="ico" aria-hidden="true">📅</span>
+              <p>
+                <strong>Cuándo tomar sus lecturas:</strong> una en la mañana antes de sus
+                medicamentos y una en la noche. Siga el horario que le indicó su médico.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ============ MÁS EN LA APLICACIÓN ============ -->
+      <div class="section-label"><span>Más en la aplicación</span></div>
+
+      <section class="step">
+        <div class="head">
+          <span class="n" aria-hidden="true">📱</span>
+          <div>
+            <h2>Los Cuatro Botones de Abajo</h2>
+            <p>&ldquo;Home&rdquo;, &ldquo;Readings&rdquo;, &ldquo;Profile&rdquo; y &ldquo;Learn&rdquo;</p>
+          </div>
+        </div>
+        <div class="body">
+          <div class="draft-note">
+            <strong>Review:</strong> same overlap note as the English page — the in-app
+            "Learn &amp; Help" screen opens this guide and repeats steps 3–6 in its own
+            words, and it is only in English.
+          </div>
+          <p>
+            No necesita ninguno de estos botones para tomar su lectura. Están ahí cuando
+            usted quiera usarlos.
+          </p>
+          <ol class="steps">
+            <li>
+              <strong>&ldquo;Readings&rdquo;</strong> (Lecturas): todas sus lecturas, de
+              la más reciente a la más antigua.
+            </li>
+            <li>
+              <strong>&ldquo;Learn&rdquo;</strong> (Aprender): artículos cortos de ayuda e
+              información sencilla sobre la presión arterial. Está en inglés.
+            </li>
+            <li>
+              <strong>&ldquo;Profile&rdquo;</strong> (Perfil): sus datos y sus
+              medicamentos. Toque <strong>&ldquo;+ Add&rdquo;</strong> (Agregar) para
+              anotar un medicamento. Puede escribir el nombre o tocar
+              <strong>&ldquo;Scan the label instead&rdquo;</strong> (Escanear la etiqueta)
+              y usar la cámara de su teléfono. Su equipo de atención revisa lo que usted
+              agregue.
+            </li>
+          </ol>
+          <div class="shots">
+            <figure class="shot">
+              <img
+                src="../../assets/ios-08-your-readings.jpg"
+                width="600"
+                height="1151"
+                alt="Pantalla Your Readings con una lectura de presión arterial marcada como Synced."
+              />
+              <figcaption class="cap">
+                <strong>&ldquo;Readings&rdquo;</strong>Todas sus lecturas
+              </figcaption>
+            </figure>
+            <figure class="shot">
+              <img
+                src="../../assets/ios-09-learn-help.jpg"
+                width="600"
+                height="1076"
+                alt="Pantalla Learn and Help, con artículos de ayuda e información de salud sobre la presión arterial."
+              />
+              <figcaption class="cap">
+                <strong>&ldquo;Learn&rdquo;</strong>Ayuda e información de salud
+              </figcaption>
+            </figure>
+            <figure class="shot">
+              <img
+                src="../../assets/ios-10-profile.jpg"
+                width="600"
+                height="734"
+                alt="Pantalla Profile con el nombre del paciente, la sección de medicamentos con un botón para agregar, y su información personal."
+              />
+              <figcaption class="cap">
+                <strong>&ldquo;Profile&rdquo;</strong>Sus datos y medicamentos
+              </figcaption>
+            </figure>
+            <figure class="shot">
+              <img
+                src="../../assets/ios-11-add-medication.jpg"
+                width="600"
+                height="1173"
+                alt="Pantalla Add a Medication, con un botón para escanear la etiqueta y casillas para el nombre del medicamento, la cantidad, la forma y cada cuánto lo toma."
+              />
+              <figcaption class="cap">
+                <strong>Agregar un medicamento</strong>Escríbalo o escanee la etiqueta
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-label"><span>Entienda sus números</span></div>
+
+      <section class="step bp-card">
+        <div class="head">
+          <span class="n" aria-hidden="true">📊</span>
+          <div>
+            <h2>¿Qué Significan Sus Números?</h2>
+            <p>Su equipo los revisa, pero aquí tiene una guía sencilla</p>
+          </div>
+        </div>
+        <div class="body">
+          <p>
+            La presión arterial son dos números, como <strong>120/78</strong>. El número
+            de arriba es la sistólica (cuando el corazón late). El número de abajo es la
+            diastólica (entre latidos).
+          </p>
+          <div class="table-wrap">
+            <table class="bp">
+              <caption>
+                Categorías de presión arterial
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Categoría</th>
+                  <th scope="col">Número de arriba</th>
+                  <th scope="col">Número de abajo</th>
+                  <th scope="col">Qué significa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="cat cat--low">Baja</span></td>
+                  <td class="num">Menos de 90</td>
+                  <td class="num">o menos de 60</td>
+                  <td>
+                    Esta lectura está más baja de lo habitual. En algunas personas
+                    eso es normal y no causa problemas. Avise a su equipo de
+                    atención si se siente mareado, aturdido, débil, con náuseas o
+                    confundido, si se desmaya, o si ve borroso o siente que el
+                    corazón le late fuerte o irregular.
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="cat cat--normal">Normal</span></td>
+                  <td class="num">Menos de 120</td>
+                  <td class="num">y menos de 80</td>
+                  <td>Muy bien: siga así.</td>
+                </tr>
+                <tr>
+                  <td><span class="cat cat--elevated">Elevada</span></td>
+                  <td class="num">120–129</td>
+                  <td class="num">y menos de 80</td>
+                  <td>Un poco alta. Su equipo la va a vigilar.</td>
+                </tr>
+                <tr>
+                  <td><span class="cat cat--stage1">Alta Etapa 1</span></td>
+                  <td class="num">130–139</td>
+                  <td class="num">o 80–89</td>
+                  <td>Es posible que su equipo lo llame.</td>
+                </tr>
+                <tr>
+                  <td><span class="cat cat--stage2">Alta Etapa 2</span></td>
+                  <td class="num">140 o más</td>
+                  <td class="num">o 90 o más</td>
+                  <td>Comuníquese pronto con su equipo.</td>
+                </tr>
+                <tr class="row-crisis">
+                  <td><span class="cat cat--crisis">Crisis ⚠️</span></td>
+                  <td class="num">Más de 180</td>
+                  <td class="num">o más de 120</td>
+                  <td>Llame al 911 de inmediato.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="source">
+            Los límites de las categorías siguen a la American Heart Association.
+          </p>
+          <div class="note note--danger">
+            <span class="ico" aria-hidden="true">🚨</span>
+            <p>
+              <strong>Llame al 911 de inmediato</strong> si su lectura pasa de 180/120 y
+              tiene síntomas: dolor de cabeza fuerte, dolor en el pecho, dificultad para
+              respirar o cambios en la vista.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-label section-label--faq"><span>Preguntas frecuentes</span></div>
+
+      <div class="faq-wrap">
+        <div class="faq">
+          <h3>Olvidé mi usuario o mi contraseña. ¿Qué hago?</h3>
+          <p>Escríbale a su coordinador de atención de 22RPM a
+            <a href="mailto:info@twentytwohealth.com">info@twentytwohealth.com</a> y se
+            los restablecen rápido.</p>
+        </div>
+        <div class="faq">
+          <h3>Mi dispositivo no se conecta. ¿Qué hago?</h3>
+          <p>revise que su monitor esté encendido. Apague el
+            Bluetooth y vuelva a encenderlo. Regrese a la pantalla principal y abra otra
+            vez la sección de presión arterial. Espere a que se abra la lista y toque su
+            monitor. Si sigue sin conectarse, escríbanos.</p>
+        </div>
+        <div class="faq">
+          <h3>¿Necesito Wi-Fi para que se envíen mis lecturas?</h3>
+          <p>Su teléfono necesita Wi-Fi o servicio celular para enviar una lectura. En
+            iPhone, si toma una lectura sin internet, la ventana dice
+            &ldquo;Reading saved&rdquo; y su tarjeta muestra &ldquo;↑ Waiting&rdquo;. Se
+            envía sola cuando vuelva a tener conexión.</p>
+        </div>
+        <div class="faq">
+          <h3>Mi lectura salió muy alta o muy baja. ¿Debo preocuparme?</h3>
+          <p>Espere 2 o 3 minutos y tómela otra vez. Si sigue por encima de 180/120 y se
+            siente mal, llame al 911. Si no, su equipo de atención la revisa y se
+            comunicará con usted.</p>
+        </div>
+        <div class="faq">
+          <h3>¿Cómo sé que mi lectura se envió?</h3>
+          <p>aparece la ventana &ldquo;Reading sent&rdquo; con
+            &ldquo;Shared with your care team&rdquo;. Después su pantalla principal dice
+            &ldquo;Blood pressure done for today&rdquo; y la lectura muestra la marca
+            verde &ldquo;✓ Synced&rdquo;.</p>
+        </div>
+        <div class="faq">
+          <h3>La aplicación dice que no se pudo conectar con el brazalete. ¿Falló mi lectura?</h3>
+          <p>No. Ese mensaje es normal en dos momentos: la primera vez que conecta el
+            monitor y después de cada lectura, cuando el monitor se apaga solo. Si vio la
+            ventana &ldquo;Reading sent&rdquo;, su equipo de atención ya tiene su lectura.
+            Toque &ldquo;Close&rdquo;.</p>
+        </div>
+        <div class="faq">
+          <h3>¿Qué pasa si se me olvida un día?</h3>
+          <p>No hay problema: tome su lectura al día siguiente. Trate de tomarlas a la
+            misma hora todos los días para obtener mejores resultados.</p>
+        </div>
+      </div>
+
+      <section class="support">
+        <h2>Siempre estamos aquí para ayudarle.</h2>
+        <p>
+          Si tiene cualquier dificultad, grande o pequeña, escríbanos. Con gusto le
+          explicamos cualquier paso.
+        </p>
+        <a href="mailto:info@twentytwohealth.com">✉️ Escríbanos</a>
+        <p class="print-only">
+          Correo electrónico: info@twentytwohealth.com
+        </p>
+      </section>
+    </main>
+
+    <footer class="guide-foot">
+      <p>&copy; 2026 22RPM Remote Patient Monitoring Services</p>
+      <p>
+        Esta guía es solo para fines informativos. Siga siempre las indicaciones de su
+        médico.
+      </p>
+    </footer>
+  </body>
+</html>

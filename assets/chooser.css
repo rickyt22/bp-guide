@@ -1,0 +1,168 @@
+/* ==========================================================================
+   22RPM — BP guide chooser pages
+   Used by /index.html (phone), /iphone/index.html and /android/index.html
+   (language), and the two /android/<lang>/ pages.
+
+   Loaded AFTER assets/guide.css, so it only adds the big tap targets. Colour
+   tokens and the system font stack come from assets/brand.css; no webfonts,
+   no CDN, no network calls.
+
+   The chooser is deliberately bilingual: the patient picks a phone before a
+   language, so every word on these pages appears in English and Spanish.
+   ========================================================================== */
+
+.choose {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+}
+
+.choose h2 {
+  text-align: center;
+  font-size: clamp(1.3rem, 4vw, 1.75rem);
+  margin-bottom: 0.2rem;
+}
+
+.choose .sub {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1.15rem;
+  margin: 0 0 var(--space-lg);
+}
+
+.choose .sub[lang="es"] {
+  margin-top: -0.4rem;
+}
+
+.options {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 34rem) {
+  .options { grid-template-columns: 1fr; }
+}
+
+.option {
+  display: block;
+  text-decoration: none;
+  color: var(--text);
+  background: var(--surface);
+  border: 3px solid var(--brand-primary);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg) var(--space-md);
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.option:hover,
+.option:focus-visible {
+  background: var(--brand-primary-100);
+}
+
+.option .big {
+  display: block;
+  font-size: clamp(1.4rem, 5vw, 1.9rem);
+  font-weight: 800;
+  color: var(--brand-primary);
+  line-height: 1.2;
+}
+
+.option .small {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+/* The "not ready yet" pages: one calm card, phone number front and centre. */
+.notice {
+  max-width: 44rem;
+  margin: 0 auto var(--space-xl);
+  padding: var(--space-lg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 6px solid var(--brand-primary);
+  border-radius: var(--radius-md);
+}
+
+.notice h2 { margin-top: 0; }
+
+.notice p { font-size: 1.15rem; line-height: 1.65; }
+
+.callout {
+  display: block;
+  text-align: center;
+  margin: var(--space-lg) 0 var(--space-sm);
+  padding: var(--space-md);
+  background: var(--brand-primary-100);
+  border-radius: var(--radius-md);
+}
+
+.callout .tel {
+  display: block;
+  font-size: clamp(1.6rem, 6vw, 2.2rem);
+  font-weight: 800;
+  color: var(--brand-primary);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+
+.callout .label {
+  display: block;
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-bottom: 0.2rem;
+}
+
+/* --------------------------------------------------------------- print ---
+   Printing a chooser page should produce a short note, not a wall of
+   buttons — the guide itself lives one click away, per platform, so a
+   printout never contains both platforms.
+   ------------------------------------------------------------------------ */
+@media print {
+  .options { grid-template-columns: 1fr 1fr; gap: 6pt; }
+  .option {
+    border: 0.75pt solid #000 !important;
+    box-shadow: none;
+    padding: 6pt;
+    break-inside: avoid;
+  }
+  .option .big { font-size: 13pt; color: #000 !important; }
+  .option .small { font-size: 11pt; color: #000 !important; }
+  .choose h2 { font-size: 14pt; }
+  .choose .sub { font-size: 12pt; color: #000 !important; }
+  .notice {
+    border: 0.75pt solid #000 !important;
+    border-left: 2pt solid #000 !important;
+    padding: 8pt;
+  }
+  .notice p { font-size: 12pt; }
+  .callout { background: none !important; border: 0.75pt solid #000; padding: 6pt; }
+  .callout .tel { font-size: 18pt; color: #000 !important; }
+  .callout .label { color: #000 !important; font-size: 11pt; }
+}
+
+/* --------------------------------------------------- bilingual paragraphs ---
+   On the bilingual pages the Spanish sentence sits on its own line under the
+   English one, so neither language reads as a run-on. */
+.note p span[lang="es"],
+.guide-foot p span[lang="es"] {
+  display: block;
+  margin-top: 0.4rem;
+}
+
+.note p span[lang="es"] {
+  color: var(--text-muted);
+}
+
+/* A phone number must never break across lines. */
+a[href^="tel:"] {
+  white-space: nowrap;
+}
+
+@media print {
+  .note p span[lang="es"],
+  .guide-foot p span[lang="es"] { color: #000 !important; }
+}
