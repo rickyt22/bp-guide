@@ -116,6 +116,12 @@
   margin-bottom: 0.2rem;
 }
 
+/* The callout carries two numbers now — calling and texting are different
+   lines, so the second label needs air above it. */
+.callout .tel + .label {
+  margin-top: 0.7rem;
+}
+
 /* --------------------------------------------------------------- print ---
    Printing a chooser page should produce a short note, not a wall of
    buttons — the guide itself lives one click away, per platform, so a
@@ -141,6 +147,7 @@
   .notice p { font-size: 12pt; }
   .callout { background: none !important; border: 0.75pt solid #000; padding: 6pt; }
   .callout .tel { font-size: 18pt; color: #000 !important; }
+  .callout .tel + .label { margin-top: 5pt; }
   .callout .label { color: #000 !important; font-size: 11pt; }
 }
 
