@@ -649,7 +649,7 @@ tr.row-crisis td {
     background: #fff !important;
     color: #000 !important;
     font-size: 12pt;
-    line-height: 1.3;
+    line-height: 1.22;
   }
 
   /* Screen-only chrome.
@@ -665,13 +665,46 @@ tr.row-crisis td {
   .guide-foot,
   .support a,
   .support > p:not(.print-only),
-  .shots,
   .store,
   .skip-link,
-  .note--tip,
   .intro {
     display: none !important;
   }
+
+  /* SCREENSHOTS NOW PRINT. They used to be dropped here as an "editorial cut",
+     which is why a printed guide showed step text with no pictures. For a
+     patient following the steps on paper the pictures are the point, so they
+     print small (about 1.3in wide, three to a row) and each figure stays whole. */
+  /* A grid with a FIXED track, not percentages: inside a multi-column flow a
+     percentage basis resolves against the wrong box and blew each screenshot up
+     to a full page. auto-fill packs as many as the column can hold. */
+  .shots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 0.95in);
+    gap: 5pt;
+    margin-top: 4pt;
+  }
+
+  .shot {
+    width: 0.95in;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .shot img {
+    width: 100%;
+    height: auto;
+    border: 0.75pt solid #000;
+    border-radius: 3pt;
+  }
+
+  .shot .cap {
+    font-size: 10pt;
+    line-height: 1.2;
+    margin-top: 2pt;
+  }
+
+  .shot .cap strong { display: block; }
 
   .container {
     max-width: none;
@@ -733,22 +766,24 @@ tr.row-crisis td {
   }
 
   /* Steps flow in two columns to fit the page budget */
+  /* Two columns, but now that a step may break (see .step below) the flow fills
+     them instead of jumping a whole step to the next column and leaving the rest
+     of the page blank — which is what produced the blank pages. */
   .steps-wrap {
     column-count: 2;
     column-gap: 14pt;
   }
   /* A section divider inside the column flow must not be orphaned at the
      bottom of a column. */
-  .steps-wrap .section-label {
-    break-before: column;
-  }
 
   .step {
     border: 0.75pt solid #000;
     border-radius: 0;
-    margin-bottom: 6pt;
-    break-inside: avoid;
-    page-break-inside: avoid;
+    margin-bottom: 4pt;
+    /* A step may run past a page break — forcing it whole is what produced
+       the blank pages. Its heading still sticks to its content below. */
+    break-inside: auto;
+    page-break-inside: auto;
     display: block;
   }
   .step > .head {
@@ -780,7 +815,7 @@ tr.row-crisis td {
   }
 
   ol.steps > li {
-    margin-bottom: 3pt;
+    margin-bottom: 2pt;
     padding-left: 17pt;
   }
   ol.steps > li::before {
