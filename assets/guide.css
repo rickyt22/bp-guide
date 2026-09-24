@@ -634,12 +634,22 @@ tr.row-crisis td {
 }
 
 @media print {
-  /* Everything black on white. No brand fills survive a photocopier as
-     anything but muddy gray, so they are dropped entirely. */
+  /* COLOUR PRINTS. These sheets go to a commercial colour printer, so brand
+     navy is kept where it is structural: the masthead rule and logo, the
+     section dividers, the step bands and their number circles, the table head
+     and the support panel. Nothing DEPENDS on colour — body copy is black,
+     every band also carries a border or a weight change, and the BP category
+     chips keep the per-category border style that identifies the category on
+     a grayscale photocopy. Drop that redundancy and the sheet stops being
+     readable the moment someone runs it through a copier. */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
   :root {
     --text: #000;
     --text-muted: #000;
-    --brand-primary: #000;
     --border: #000;
     --border-strong: #000;
   }
@@ -713,18 +723,19 @@ tr.row-crisis td {
 
   /* Compact masthead */
   .guide-head {
-    border-bottom: 1.5pt solid #000;
+    border-bottom: 1.5pt solid var(--brand-primary);
     padding: 0 0 5pt;
     margin-bottom: 7pt;
     gap: 8pt;
   }
+  /* The logo prints in colour; it is a filled mark, dark enough to stay
+     legible if the sheet is later photocopied. */
   .guide-head img {
     width: 34pt;
-    filter: grayscale(100%) contrast(160%);
   }
   .guide-head .wordmark {
     font-size: 13pt;
-    color: #000;
+    color: var(--brand-primary);
   }
   .guide-head p {
     font-size: 8.5pt;
@@ -758,11 +769,14 @@ tr.row-crisis td {
   }
   .section-label span {
     font-size: 10pt;
-    color: #000;
+    color: var(--brand-primary);
   }
+  /* Dividers print navy at 1pt — the rule is what separates the sections, the
+     colour only makes it look intentional. Uppercase + bold still labels it. */
   .section-label::before,
   .section-label::after {
-    background: #000;
+    background: var(--brand-primary);
+    height: 1pt;
   }
 
   /* Steps flow in two columns to fit the page budget */
@@ -777,7 +791,7 @@ tr.row-crisis td {
      bottom of a column. */
 
   .step {
-    border: 0.75pt solid #000;
+    border: 0.75pt solid var(--brand-primary);
     border-radius: 0;
     margin-bottom: 4pt;
     /* A step may run past a page break — forcing it whole is what produced
@@ -786,25 +800,25 @@ tr.row-crisis td {
     page-break-inside: auto;
     display: block;
   }
+  /* Filled navy band, as on screen. In grayscale it copies as a dark bar with
+     white text — the contrast, not the hue, is what carries the heading. */
   .step > .head {
-    background: none !important;
-    color: #000 !important;
-    border-bottom: 0.75pt solid #000;
+    background: var(--brand-primary) !important;
+    color: #fff !important;
+    border-bottom: 0.75pt solid var(--brand-primary);
     padding: 3pt 5pt;
     gap: 5pt;
   }
   .step > .head .n {
-    background: #000 !important;
-    color: #fff !important;
+    background: #fff !important;
+    color: var(--brand-primary) !important;
     width: 16pt;
     height: 16pt;
     font-size: 11pt;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
   }
   .step > .head h2 {
     font-size: 13pt;
-    color: #000 !important;
+    color: #fff !important;
   }
   .step > .head p {
     display: none;
@@ -818,10 +832,12 @@ tr.row-crisis td {
     margin-bottom: 2pt;
     padding-left: 17pt;
   }
+  /* Keeps its outline as well as its tint: the ring is what makes the number
+     read as a step marker once the tint copies out to white. */
   ol.steps > li::before {
-    background: none;
-    border: 0.75pt solid #000;
-    color: #000;
+    background: var(--brand-primary-100);
+    border: 0.75pt solid var(--brand-primary);
+    color: var(--brand-primary);
     width: 13pt;
     height: 13pt;
     font-size: 9pt;
@@ -829,7 +845,7 @@ tr.row-crisis td {
   }
 
   .note {
-    border: 0.75pt solid #000 !important;
+    border: 0.75pt solid var(--brand-primary) !important;
     background: none !important;
     color: #000 !important;
     padding: 3pt 5pt;
@@ -838,8 +854,11 @@ tr.row-crisis td {
     break-inside: avoid;
     page-break-inside: avoid;
   }
+  /* Double the border weight AND the crisis colour, so the warning still
+     stands out from an ordinary note in grayscale. */
   .note--danger {
     border-width: 1.5pt !important;
+    border-color: var(--cat-crisis) !important;
   }
 
   .cuff {
@@ -852,7 +871,9 @@ tr.row-crisis td {
     padding: 3pt 5pt;
     font-size: 12pt;
   }
-  .cuff strong,
+  .cuff strong {
+    color: var(--brand-primary);
+  }
   .cuff span {
     color: #000;
   }
@@ -894,9 +915,9 @@ tr.row-crisis td {
     padding-bottom: 3pt;
   }
   table.bp thead th {
-    background: none !important;
-    color: #000 !important;
-    border-bottom: 1pt solid #000;
+    background: var(--brand-primary) !important;
+    color: #fff !important;
+    border-bottom: 1pt solid var(--brand-primary);
     font-size: 12pt;
   }
   table.bp th,
@@ -904,34 +925,48 @@ tr.row-crisis td {
     border-bottom: 0.5pt solid #000;
     padding: 3pt 4pt;
   }
-  /* Grayscale-safe: no background fills, category conveyed by the label text
-     plus a border style unique to each row. */
+  /* Chips print in their category colour, but the category is STILL carried
+     by the label text and by a border style unique to each row — dotted,
+     solid, dashed, double, thick. Photocopy this page and every row is still
+     distinguishable with the colour gone. The chip tints are near-white, so
+     they copy to paper white rather than muddy gray. */
   .cat {
-    background: none !important;
-    color: #000 !important;
     padding: 1pt 4pt;
     font-size: 12pt;
   }
   .cat--low {
-    border: 1.5pt dotted #000 !important;
+    background: var(--cat-low-bg) !important;
+    color: var(--cat-low) !important;
+    border: 1.5pt dotted var(--cat-low) !important;
   }
   .cat--normal {
-    border: 0.75pt solid #000 !important;
+    background: var(--cat-normal-bg) !important;
+    color: var(--cat-normal) !important;
+    border: 0.75pt solid var(--cat-normal) !important;
   }
   .cat--elevated {
-    border: 1.5pt dashed #000 !important;
+    background: var(--cat-elevated-bg) !important;
+    color: var(--cat-elevated) !important;
+    border: 1.5pt dashed var(--cat-elevated) !important;
   }
   .cat--stage1 {
-    border: 3pt double #000 !important;
+    background: var(--cat-stage1-bg) !important;
+    color: var(--cat-stage1) !important;
+    border: 3pt double var(--cat-stage1) !important;
   }
   .cat--stage2 {
-    border: 1.5pt solid #000 !important;
+    background: var(--cat-stage2-bg) !important;
+    color: var(--cat-stage2) !important;
+    border: 1.5pt solid var(--cat-stage2) !important;
   }
   .cat--crisis {
-    border: 2.5pt solid #000 !important;
+    background: var(--cat-crisis-bg) !important;
+    color: var(--cat-crisis) !important;
+    border: 2.5pt solid var(--cat-crisis) !important;
   }
+  /* Bold as well as red: the crisis row reads as the crisis row in grayscale. */
   tr.row-crisis td {
-    color: #000 !important;
+    color: var(--cat-crisis) !important;
     font-weight: 700;
   }
 
@@ -959,9 +994,9 @@ tr.row-crisis td {
   }
 
   .support {
-    background: none !important;
-    color: #000 !important;
-    border: 1pt solid #000;
+    background: var(--brand-primary) !important;
+    color: #fff !important;
+    border: 1pt solid var(--brand-primary);
     border-radius: 0;
     padding: 5pt 7pt;
     margin-top: 7pt;
@@ -971,10 +1006,10 @@ tr.row-crisis td {
   }
   .support h2 {
     font-size: 13pt;
-    color: #000 !important;
+    color: #fff !important;
   }
   .support p {
-    color: #000 !important;
+    color: #fff !important;
     margin: 0;
     max-width: none;
     font-size: 12pt;

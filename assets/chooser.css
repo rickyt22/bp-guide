@@ -128,25 +128,32 @@
    printout never contains both platforms.
    ------------------------------------------------------------------------ */
 @media print {
+  /* Colour prints here too, so a chooser page printed on its own matches the
+     guide's masthead instead of sitting half navy, half black. Every border
+     and weight is unchanged, so the page still reads photocopied. */
   .options { grid-template-columns: 1fr 1fr; gap: 6pt; }
   .option {
-    border: 0.75pt solid #000 !important;
+    border: 0.75pt solid var(--brand-primary) !important;
     box-shadow: none;
     padding: 6pt;
     break-inside: avoid;
   }
-  .option .big { font-size: 13pt; color: #000 !important; }
+  .option .big { font-size: 13pt; color: var(--brand-primary) !important; }
   .option .small { font-size: 11pt; color: #000 !important; }
   .choose h2 { font-size: 14pt; }
   .choose .sub { font-size: 12pt; color: #000 !important; }
   .notice {
-    border: 0.75pt solid #000 !important;
-    border-left: 2pt solid #000 !important;
+    border: 0.75pt solid var(--brand-primary) !important;
+    border-left: 2pt solid var(--brand-primary) !important;
     padding: 8pt;
   }
   .notice p { font-size: 12pt; }
-  .callout { background: none !important; border: 0.75pt solid #000; padding: 6pt; }
-  .callout .tel { font-size: 18pt; color: #000 !important; }
+  .callout {
+    background: var(--brand-primary-100) !important;
+    border: 0.75pt solid var(--brand-primary);
+    padding: 6pt;
+  }
+  .callout .tel { font-size: 18pt; color: var(--brand-primary) !important; }
   .callout .tel + .label { margin-top: 5pt; }
   .callout .label { color: #000 !important; font-size: 11pt; }
 }
