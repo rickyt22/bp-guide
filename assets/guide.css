@@ -663,12 +663,23 @@ tr.row-crisis td {
   }
 
   /* Screen-only chrome.
-     The printed sheet is deliberately the ESSENTIAL handout: the six setup
-     steps, the blood pressure table, the emergency warning, and how to reach
-     us, plus the troubleshooting FAQ. Only the welcome blurb, the app
-     screenshots and the optional tips are dropped; those remain on the web
-     page and in the app embed. This is an editorial cut, not a layout
-     accident. The sheet runs to three Letter pages at a 12pt floor. */
+     The printed sheet is the ESSENTIAL handout: the six setup steps with all
+     of their screenshots and tips, the blood pressure table, the emergency
+     warning, and how to reach us. Six pages was too long to hand a patient,
+     so two whole sections come off the PAPER and stay on the web page, where
+     length costs nothing:
+
+       .section-label--more / .step--more   "More in the app" — Readings,
+         Learn, Profile, Add a Medication. None of it is needed to take a
+         reading, and the app's own Learn tab is one tap away.
+       .section-label--faq / .faq-wrap      "Common questions" — the five
+         remaining answers each repeat something already said inline, beside
+         the picture it belongs to. The two that did NOT repeat anything
+         (username lookup, missing a day) were moved INTO the inline tips
+         before this cut, so nothing is lost on paper.
+
+     That takes the sheet from 6 pages to 4. Removing either rule puts the
+     section back on paper and adds roughly a page per language. */
   .topbar,
   .langs,
   .hero,
@@ -677,7 +688,11 @@ tr.row-crisis td {
   .support > p:not(.print-only),
   .store,
   .skip-link,
-  .intro {
+  .intro,
+  .section-label--more,
+  .step--more,
+  .section-label--faq,
+  .faq-wrap {
     display: none !important;
   }
 
@@ -690,13 +705,13 @@ tr.row-crisis td {
      to a full page. auto-fill packs as many as the column can hold. */
   .shots {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 0.95in);
-    gap: 5pt;
+    grid-template-columns: repeat(auto-fill, 0.78in);
+    gap: 4pt;
     margin-top: 4pt;
   }
 
   .shot {
-    width: 0.95in;
+    width: 0.78in;
     break-inside: avoid;
     page-break-inside: avoid;
   }
@@ -708,13 +723,22 @@ tr.row-crisis td {
     border-radius: 3pt;
   }
 
+  /* The caption keeps the screen's NAME — that is what the patient matches
+     against the phone in their hand. The sentence describing what to do there
+     is dropped: the step text beside the picture already says it, and at four
+     pictures to a row that second line was costing more height than the
+     pictures themselves. It stays on the web page. */
   .shot .cap {
-    font-size: 10pt;
-    line-height: 1.2;
+    font-size: 9pt;
+    line-height: 1.15;
     margin-top: 2pt;
   }
 
   .shot .cap strong { display: block; }
+
+  .shot .cap .cap-more {
+    display: none;
+  }
 
   .container {
     max-width: none;
